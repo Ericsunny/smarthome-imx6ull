@@ -1,0 +1,11 @@
+*.o
+*.ko
+*.mod.c
+.*.cmd
+modules.order
+Module.symvers
+build-*/
+*.pro.user
+smarthome
+*App
+moc_*
