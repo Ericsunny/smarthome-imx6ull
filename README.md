@@ -1,70 +1,96 @@
-# 智能安防监控系统 (I.MX6ULL)
+# SmartHome IMX6ULL — 基于 i.MX6ULL 的嵌入式智能安防系统
 
-基于正点原子 ATK-IMX6ULL 开发板的智能安防监控系统。
+> 平台：NXP i.MX6ULL（ARM Cortex-A7 @ 792MHz）  
+> 内核：Linux 4.1.15  
+> 工具链：arm-linux-gnueabihf-gcc  
+> 应用框架：Qt 5.x（交叉编译部署）
 
-![Arch](https://img.shields.io/badge/Platform-I.MX6ULL_Cortex--A7-blue) ![Kernel](https://img.shields.io/badge/Kernel-4.1.15-green) ![QT](https://img.shields.io/badge/QT-5.12.9-green) ![OpenCV](https://img.shields.io/badge/OpenCV-3.4.1-yellow)
+## 项目简介
 
-## 功能
+本项目是一套运行在 i.MX6ULL 开发板上的嵌入式智能安防系统，覆盖从 **Linux 驱动开发** 到 **Qt 应用层** 的完整软件栈。系统集成多路传感器驱动、摄像头人脸识别、考勤管理和实时告警功能，所有驱动均基于 Linux 内核框架从零编写，并通过设备树进行硬件描述与配置。
 
-- 🌡️ 温湿度/光照/距离实时监测（DHT11 / AP3216C / HC-SR04）
-- 🚨 红外人体检测 + 摄像头人脸识别 → 多传感器融合报警
-- 📷 USB 免驱摄像头实时监控 + Haar 人脸检测 + LBPH 身份识别
-- 🕐 SeetaFace2 考勤打卡（PC 端服务器 + TCP 协议）
-- 🌡️ 温湿度超标自动开风扇（阈值联动）
-- 🌙 光照感应自动开关窗帘 + 定时开关
-- 🖥️ QT 多线程界面（5 工作线程 + 信号槽通信 + 温度趋势图）
-
-## 架构
+## 系统架构
 
 ```
-┌──────────────────────────────────────────┐
-│  QT 应用层 (C++11, 多线程)                │
-│  UI主线程 + 4个Worker线程 + SeetaClient   │
-│  布防/撤防状态机 + 多传感器融合报警        │
-├──────────────────────────────────────────┤
-│  接口协议层 (/dev 节点 + ioctl 命令字)     │
-├──────────────────────────────────────────┤
-│  Linux 驱动层 (7 个手写 platform 模块)     │
-│  + uvcvideo.ko (USB摄像头)               │
-│  + AP3216C 内核自带驱动 (ioctl 适配)      │
-├──────────────────────────────────────────┤
-│  Linux 4.1.15 + 设备树 (9 自定义节点)     │
-└──────────────────────────────────────────┘
+┌─────────────────────────────────────────┐
+│           Qt 应用层（GUI + 业务逻辑）      │
+│  人脸识别 / 考勤管理 / 告警联动 / 设备控制  │
+├─────────────────────────────────────────┤
+│              接口协议层                   │
+│        UART / I2C / SPI / GPIO           │
+├─────────────────────────────────────────┤
+│           Linux 驱动层（内核模块）         │
+│  字符设备 / 平台驱动 / 设备树绑定          │
+├─────────────────────────────────────────┤
+│         i.MX6ULL 硬件平台                │
+│  ARM Cortex-A7 / DDR3 / eMMC            │
+└─────────────────────────────────────────┘
 ```
 
-## 快速浏览
+## 驱动层（01-驱动层）
 
-```
-experiments 不在本仓库(见 VM) →
-01-驱动层/       8 个模块驱动 + 8 个测试程序 (2040 行 C)
-02-应用层QT/     QT 界面 + 4 个工作线程 + 设备封装层 (570 行 C++)
-03-设备树/       完整 dts + 自定义节点摘录 (159 行)
-04-接口协议/     8 设备接口备忘
-05-摄像头工具/   camcap 单帧抓图 + facetest 人脸链路诊断
-```
+所有驱动均采用 **platform_driver + device tree** 架构，支持模块化加载。
 
-## 构建
+| 驱动文件 | 硬件 | 接口 | 说明 |
+|---|---|---|---|
+| `led.c` | LED | GPIO | 基于 pinctrl/gpio 子系统，支持多路控制 |
+| `beep.c` | 蜂鸣器 | GPIO/PWM | 告警联动输出 |
+| `dht11.c` | DHT11 温湿度传感器 | 单总线 | 严格时序控制，精确采样 |
+| `ap3216c.c` | AP3216C 光强+接近传感器 | I2C | i2c_driver 框架，支持 ALS/PS/IR 三路数据 |
+| `hc_sr04.c` | HC-SR04 超声波测距 | GPIO | 高精度定时，距离计算 |
+| `hc_sr505.c` | HC-SR505 人体红外 | GPIO | 中断驱动，低功耗检测 |
+| `sg90.c` | SG90 舵机 | PWM | 精确角度控制，用于摄像头云台 |
+| `step28byj48.c` | 28BYJ-48 步进电机 | GPIO | 四相八拍时序控制 |
+
+每个驱动均配有独立测试程序（`*App.c`），可在目标板上直接验证。
+
+## 摄像头与视觉（05-摄像头工具）
+
+- `camcap.cpp`：基于 **V4L2** 框架实现摄像头采集，支持 YUYV/MJPEG 格式，mmap 零拷贝读取帧数据
+- `facetest.cpp`：集成 **OpenCV** 人脸检测，Haar 级联分类器实时识别，用于考勤打卡场景
+
+## 应用层（02-应用层QT）
+
+- Qt 跨平台 GUI，交叉编译部署至 i.MX6ULL
+- 实时显示传感器数据（温湿度、光强、接近距离）
+- 摄像头画面预览 + 人脸识别结果展示
+- 考勤记录管理（录入 / 查询 / 导出）
+- 多路告警联动（红外触发 → 蜂鸣器 + LED + 摄像头抓拍）
+
+## 设备树（03-设备树）
+
+基于 i.MX6ULL 官方 DTS 进行定制修改，添加各外设节点的 pinctrl 配置、I2C 设备描述及中断绑定。
+
+## 接口协议（04-接口协议）
+
+涵盖 I2C、UART、SPI、GPIO 的应用层封装与驱动层对接说明。
+
+## 构建方式
 
 ```bash
-# 驱动 (交叉编译 gcc-linaro-4.9.4)
-cd smarthome-drivers
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+# 驱动编译（需配置交叉编译工具链和内核源码路径）
+cd 01-驱动层
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -C /path/to/kernel M=$(pwd) modules
 
-# QT 应用 (poky SDK gcc 5.3)
-source /opt/fsl-imx-x11/4.1.15-2.1.0/environment-setup-cortexa7hf-neon-poky-linux-gnueabi
-cd smarthome-qt
-qmake && make -j4
+# 应用层编译
+cd 02-应用层QT
+qmake && make
 ```
 
-## 关键技术
+## 目录结构
 
-| 模块 | 技术 | 亮点 |
-|------|------|------|
-| DHT11 | 双边沿中断 + ktime_get_ns 时间戳解码 | 微秒级单总线时序，不用忙等 |
-| HC-SR04 | 双边沿中断测脉宽 + div_u64 | cm = us / 58 |
-| SG90 | PWM 子系统 50Hz | 0.5~2.5ms ↔ 0~180° |
-| 28BYJ48 | 四相八拍 + usleep_range | 4096 拍/圈, mutex+Ctrl+C |
-| AP3216C | I2C 两条 msg 随机读 | id_table 匹配 (老内核) |
-| 摄像头 | V4L2 mmap + Haar + LBPH | 格式枚举协商 + ROI 跟踪 |
-| 考勤 | TCP + SeetaFace2 + SQLite | 8字节长度头 + JPEG + JSON |
-| 报警 | 多传感器融合 | SR505+摄像头双确认, 布防/撤防 |
+```
+smarthome-imx6ull/
+├── 01-驱动层/          # Linux 内核驱动模块（.c + App测试）
+├── 02-应用层QT/        # Qt GUI 应用源码
+├── 03-设备树/          # DTS 设备树配置文件
+├── 04-接口协议/        # 通信协议封装
+├── 05-摄像头工具/      # V4L2 采集 + OpenCV 人脸识别
+├── 00-项目总回顾.md    # 项目完整技术总结
+├── M5-整机演示流程.md  # 系统演示与验收流程
+└── 摄像头验收文档.md   # 摄像头模块验收记录
+```
+
+## 技术栈
+
+`Linux Kernel` `Device Tree` `Platform Driver` `Character Device` `I2C` `GPIO` `V4L2` `OpenCV` `Qt5` `ARM Cortex-A7` `i.MX6ULL` `C` `C++`
