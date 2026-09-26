@@ -1,0 +1,159 @@
+/*
+ * 自定义节点摘录 —— 本项目对 imx6ull-alientek-emmc.dts 的全部增改
+ * 完整文件见同目录 imx6ull-alientek-emmc.dts（1067 行）
+ */
+
+// ============ pinctrl 引脚组 ============
+
+		pinctrl_led: ledgrp {
+			fsl,pins = <
+				MX6UL_PAD_GPIO1_IO03__GPIO1_IO03  0x10B0
+			>;
+		};
+
+		pinctrl_dht11: dht11grp {
+			fsl,pins = <
+				MX6UL_PAD_GPIO1_IO01__GPIO1_IO01  0x1B0B0
+			>;
+		};
+
+		pinctrl_hcsr505: hcsr505grp{
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER2__GPIO5_IO02 0x17059
+			>;
+		};
+
+		pinctrl_step: stepgrp {
+			fsl,pins = <
+				MX6UL_PAD_JTAG_MOD__GPIO1_IO10		0x10B0	/* 28BYJ48 IN1 */
+				MX6UL_PAD_UART1_CTS_B__GPIO1_IO18	0x10B0	/* 28BYJ48 IN2(KEY0 让位) */
+			>;
+		};
+
+		pinctrl_step_snvs: step_snvsgrp {
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x10B0	/* 28BYJ48 IN3 */
+				MX6ULL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x10B0	/* 28BYJ48 IN4 */
+			>;
+		};
+
+		pinctrl_hcsr04: hcsr04grp {
+			fsl,pins = <
+				MX6UL_PAD_GPIO1_IO02__GPIO1_IO02	0x10B0	/* HC-SR04 TRIG 输出 */
+				MX6UL_PAD_GPIO1_IO00__GPIO1_IO00	0x13080	/* HC-SR04 ECHO 输入(5V 经 1k+2k 分压) */
+			>;
+		};
+
+		pinctrl_pwm3: pwm3grp {
+			fsl,pins = <
+				MX6UL_PAD_GPIO1_IO04__PWM3_OUT  0x110b0
+			>;
+		};
+
+// ============ 根节点下的设备节点 ============
+
+	gpioled {
+		#address-cells = <1>;
+		#size-cells  = <1>;
+		compatible = "atkalpha-gpioled";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_led>;
+		led-gpio = <&gpio1 3 GPIO_ACTIVE_LOW>;
+		status = "okay";
+	};
+
+	beep {
+		#address-cells = <1>;
+		#size-cells  = <1>;
+		compatible = "smarthome,beep";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_beep>;
+		beep-gpios = <&gpio5 1 GPIO_ACTIVE_LOW>;
+		status = "okay";
+	};
+
+	dht11{
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "smarthome,dht11";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_dht11>;
+		dht11-gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	hc_sr505{
+		compatible = "smarthome,hc-sr505";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_hcsr505>;
+		out-gpios = <&gpio5 2 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	hc_sr04 {
+		compatible = "smarthome,hc-sr04";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_hcsr04>;
+		trig-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
+		echo-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+	sg90 {
+		compatible = "smarthome,sg90";
+		pwms = <&pwm3 0 20000000>;
+		status = "okay";
+	};
+
+	step28byj48 {
+		compatible = "smarthome,step28byj48";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_step &pinctrl_step_snvs>;
+		in-gpios = <&gpio1 10 GPIO_ACTIVE_HIGH>,
+			   <&gpio1 18 GPIO_ACTIVE_HIGH>,
+			   <&gpio5 4 GPIO_ACTIVE_HIGH>,
+			   <&gpio5 0 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+
+// ============ 引用节点（PWM 使能 / 出厂禁用项）============
+
+&pwm3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pwm3>;
+	clocks = <&clks IMX6UL_CLK_PWM3>, <&clks IMX6UL_CLK_PWM3>;
+	status = "okay";
+};
+
+&tsc {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_tsc>;
+	xnur-gpio = <&gpio1 3 GPIO_ACTIVE_LOW>;
+	measure-delay-time = <0xffff>;
+	pre-charge-time = <0xfff>;
+	status = "disabled";
+};
+
+&usbotg1 {
+	dr_mode = "otg";
+	srp-disable;
+	hnp-disable;
+	adp-disable;
+	status = "disabled"; /* GPIO1_IO00 让位给 hc_sr04 ECHO，OTG1 口不再使用 */
+};
+
+// ============ 51 章 key 节点（已注释, GPIO1_IO18 让位给 28BYJ48）============
+
+/* 51章 key 节点暂注释: GPIO1_IO18 让位给 28BYJ48 IN2, 复习 51 章时还原
+ 	key {
+ 		#address-cells = <1>;
+ 		#size-cells  = <1>;
+ 		compatible = "atkalpha-key";
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_key>;
+ 		key-gpio = <&gpio1 18 GPIO_ACTIVE_LOW>;
+ 		interrupt-parent = <&gpio1>;
+ 		interrupts = <18 IRQ_TYPE_EDGE_BOTH>;
+ 		status = "okay";
+ 	};
+ */
