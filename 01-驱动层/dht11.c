@@ -188,9 +188,12 @@ static ssize_t dht11_read(struct file *filp, char __user *buf,
     if (ret)
         return ret;
 
-	/*  发送18ms低脉冲(起始信号) */
+	/*  发送18ms低脉冲(起始信号)。
+	 *  read 是进程上下文可睡眠: GPIO 电平由硬件保持, 不需要 CPU 咬着,
+	 *  用 usleep_range 让出 CPU(原来 mdelay(18) 忙等, 每次 read 白烧
+	 *  18ms 单核 CPU; 应用 1.2s 轮询一次 ≈ 持续 1.5% CPU) */
 	gpio_direction_output(dht11.data_gpio, 0);
-	mdelay(18);
+	usleep_range(18000, 20000);
 
     /*释放总线, 之后到收满一帧之间全靠中断*/
 	gpio_direction_input(dht11.data_gpio);

@@ -60,8 +60,12 @@ static ssize_t beep_write(struct file *filp, const char __user *buf,
     unsigned char beepstat;
     struct beep_dev *dev = filp->private_data;
 
-    retvalue = copy_from_user(databuf, buf, cnt);
-    if(retvalue < 0){
+    /* 只接受 1 字节命令: databuf 只有 1 字节, 按用户 cnt 拷会越界写内核栈 */
+    if (cnt < 1)
+        return -EINVAL;
+    retvalue = copy_from_user(databuf, buf, 1);
+    /* copy_from_user 返回"没拷到的字节数": 失败是正数, 判 < 0 永远不成立 */
+    if(retvalue){
         printk("kernel write failed!\r\n");
         return -EFAULT;
     }
