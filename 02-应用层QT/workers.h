@@ -2,6 +2,7 @@
 #define WORKERS_H
 
 #include <QThread>
+#include <atomic>
 #include "deviceio.h"
 
 /*
@@ -43,7 +44,7 @@ signals:
     void distanceUpdated(int cm);
 
 private:
-    volatile bool m_stop;
+    std::atomic<bool> m_stop;
 };
 
 /*
@@ -77,7 +78,7 @@ signals:
     void alarmChanged(int state);
 
 private:
-    volatile bool m_stop;
+    std::atomic<bool> m_stop;
 };
 
 /*

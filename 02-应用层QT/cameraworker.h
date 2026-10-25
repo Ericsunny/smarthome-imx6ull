@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QString>
 #include <QVector>
+#include <atomic>
 #include <opencv2/opencv.hpp>
 #include <opencv2/face.hpp>
 #include <fcntl.h>
@@ -414,7 +415,7 @@ private:
         m_fd = -1;
     }
 
-    volatile bool m_stop;
+    std::atomic<bool> m_stop;
     int m_fd;
     bool m_mjpeg;
     int m_width, m_height;
