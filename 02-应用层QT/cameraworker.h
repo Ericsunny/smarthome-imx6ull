@@ -379,6 +379,10 @@ private:
             m_fd = -1;
             return -1;
         }
+        /* m_bufAddr 只有 4 格, 有的驱动会返回比申请更多的 buffer, 钳住 */
+        if (req.count > 4u)
+            req.count = 4u;
+        int mapped = 0;                     /* 已成功 mmap 的数量, 失败回滚用 */
         for (int i = 0; i < (int)req.count; i++) {
             struct v4l2_buffer b;
             memset(&b, 0, sizeof(b));
@@ -386,19 +390,36 @@ private:
             b.memory = req.memory;
             b.index = i;
             if (ioctl(m_fd, VIDIOC_QUERYBUF, &b) < 0)
-                return -1;
+                goto fail_open;
             m_bufLen[i] = b.length;
             m_bufAddr[i] = (char *)mmap(NULL, b.length,
                                         PROT_READ | PROT_WRITE,
                                         MAP_SHARED, m_fd, b.m.offset);
             if (m_bufAddr[i] == MAP_FAILED)
-                return -1;
+                goto fail_open;
+            mapped++;
             ioctl(m_fd, VIDIOC_QBUF, &b);
         }
-        int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-        if (ioctl(m_fd, VIDIOC_STREAMON, &type) < 0)
-            return -1;
+        {
+            int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+            if (ioctl(m_fd, VIDIOC_STREAMON, &type) < 0)
+                goto fail_open;
+        }
         return 0;
+
+fail_open:
+        /* 必须关掉 fd 并复位 m_fd: 不然主循环以为摄像头在线,
+         * 在一个没起流的 fd 上 poll 出 POLLERR 热循环, 拔插也不再重连 */
+        for (int i = 0; i < mapped; i++) {
+            if (m_bufAddr[i] && m_bufAddr[i] != MAP_FAILED) {
+                munmap(m_bufAddr[i], m_bufLen[i]);
+                m_bufAddr[i] = nullptr;
+            }
+        }
+        if (m_fd >= 0)
+            close(m_fd);
+        m_fd = -1;
+        return -1;
     }
 
     void closeDevice()

@@ -48,9 +48,9 @@ private:
 };
 
 /*
- * 报警监听线程：阻塞 read hc_sr505（驱动内是中断+等待队列，零 CPU 消耗），
- * 有人/无人状态变化时发信号。设备离线时降级为 1 秒空转（模拟模式下即此路径）。
- * 注意：阻塞 read 无法用 stop() 打断——退出程序时线程随进程结束（可接受）。
+ * 报警监听线程：waitAlarm 内部 poll 等中断事件（驱动侧中断+等待队列，
+ * 零 CPU 消耗），有人/无人状态变化时发信号。设备离线时每秒超时一次，
+ * 循环头即可见 stop 标志——退出程序时线程最多 1 秒内结束。
  */
 class AlarmWorker : public QThread
 {
@@ -65,12 +65,12 @@ protected:
     {
         while (!m_stop) {
             int state = -1;
-            if (DeviceIO::instance().readHcSr505(state)) {
+            /* waitAlarm 内部 poll(1s 超时): 有事件返回 true, 超时返回
+             * false——两种情况都会回到循环头看 m_stop, 退出程序时线程
+             * 最多 1 秒内结束(原来的阻塞 read 打不断, 析构时 abort) */
+            if (DeviceIO::instance().waitAlarm(1000, state))
                 emit alarmChanged(state);        /* 1=有人 0=无人 */
-            } else {
-                for (int i = 0; i < 10 && !m_stop; ++i)
-                    msleep(100);                 /* 设备离线：降级空转 */
-            }
+            /* 设备离线时 waitAlarm 同样走超时路径, 不再需要降级空转 */
         }
     }
 

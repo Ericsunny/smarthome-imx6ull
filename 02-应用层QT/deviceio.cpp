@@ -1,6 +1,7 @@
 #include "deviceio.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include <poll.h>
 #include <QThread>
 #include <QDebug>
 #include <QTime>
@@ -29,7 +30,11 @@ void DeviceIO::openAll()
     return;
 #else
     for (int i = 0; i < D_COUNT; ++i) {
-        m_fd[i] = open(DEV_PATH[i], O_RDWR);
+        /* hc_sr505 用 O_NONBLOCK: 驱动 read 支持(无事件返 -EAGAIN),
+         * 配合 waitAlarm 的 poll 让报警线程可退出——阻塞 read 无法被
+         * stop() 打断, 退出时会带着还在跑的线程析构 QThread(abort) */
+        int flags = (i == D_HCSR505) ? (O_RDWR | O_NONBLOCK) : O_RDWR;
+        m_fd[i] = open(DEV_PATH[i], flags);
         if (m_fd[i] < 0)
             qDebug() << "设备离线:" << DEV_PATH[i];
     }
@@ -98,6 +103,36 @@ bool DeviceIO::readHcSr505(int &state)
     if (m_fd[D_HCSR505] < 0)
         return false;
     return read(m_fd[D_HCSR505], &state, sizeof(state)) == sizeof(state);
+#endif
+}
+
+bool DeviceIO::waitAlarm(int timeoutMs, int &state)
+{
+#ifdef SIM_DEVICES
+    /* 模拟：每 ~8 秒随机触发一次"有人"，超时粒度 1s */
+    static int cnt = 0;
+    QThread::msleep(timeoutMs < 1000 ? timeoutMs : 1000);
+    if (++cnt % 8 == 0)
+        state = 1;
+    else
+        return false;
+    return true;
+#else
+    if (m_fd[D_HCSR505] < 0) {
+        QThread::msleep(timeoutMs < 1000 ? timeoutMs : 1000);
+        return false;
+    }
+    struct pollfd pfd;
+    pfd.fd = m_fd[D_HCSR505];
+    pfd.events = POLLIN;
+    pfd.revents = 0;
+    int pr = poll(&pfd, 1, timeoutMs);
+    if (pr <= 0)
+        return false;               /* 超时/出错: 让上层循环看 m_stop */
+    state = 0;
+    if (read(m_fd[D_HCSR505], &state, sizeof(state)) != sizeof(state))
+        return false;               /* -EAGAIN(被别人读走)等: 当作无事件 */
+    return true;
 #endif
 }
 

@@ -48,6 +48,10 @@ public:
     bool readAp3216c(float &lux);                /* 出参：光照 lux（ioctl 读 ALS）*/
     bool readHcSr505(int &state);                /* 阻塞！出参：1有人/0无人 */
     bool readHcSr04(int &distCm);                /* 出参：距离 cm，-1=超时 */
+    /* 带超时等一次报警事件(内部 poll,设备以 O_NONBLOCK 打开)。
+     * 返回 true=state 有效; false=超时无事件/设备离线。
+     * AlarmWorker 用它替代阻塞 read——退出程序时线程能在超时点看到 stop 标志 */
+    bool waitAlarm(int timeoutMs, int &state);
 
     /* ---- 控制 ---- */
     bool setLed(bool on);

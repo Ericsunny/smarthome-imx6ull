@@ -134,8 +134,10 @@ MainWindow::~MainWindow()
     m_fanTimer->stop();
     if (m_sensorThread) m_sensorThread->stop();
     if (m_alarmThread)  m_alarmThread->stop();
-    /* 阻塞 read 线程无法被 stop 打断，随进程退出回收 */
     m_sensorThread->wait(1500);
+    /* 报警线程已改 waitAlarm(1s 超时 poll): stop 后最多 1 秒内退出,
+     * 必须 wait——否则带着运行中的线程析构 QThread 会 abort */
+    m_alarmThread->wait(3000);
     /* 窗帘步进若在走，等它收尾（最长约 4.5 秒） */
     m_curtainThread->wait(6000);
 }
