@@ -160,8 +160,9 @@ static int step_probe(struct platform_device *pdev)
 	for (i = 0; i < 4; i++) {
 		ret = gpio_direction_output(step.gpio[i], 0);
 		if (ret) {
-			while (--i >= 0)
-				gpio_free(step.gpio[i]);
+			/* 走到这里 4 个 GPIO 都已 request 成功, 统一由
+			 * fail_free_all 释放 —— 这里不能先释放前 i 个,
+			 * 否则与 fail_free_all 形成双重 gpio_free */
 			goto fail_free_all;
 		}
 	}

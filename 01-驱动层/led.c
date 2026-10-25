@@ -152,19 +152,12 @@ static int led_probe(struct platform_device *pdev)
 
 static int led_remove(struct platform_device *pdev)
 {
-    
-
-    cdev_del(&gpioled.cdev);
-    unregister_chrdev_region(gpioled.devid, GPIOLED_CNT);
-
     device_destroy(gpioled.class, gpioled.devid);
     class_destroy(gpioled.class);
+    cdev_del(&gpioled.cdev);
+    unregister_chrdev_region(gpioled.devid, GPIOLED_CNT);
 
     gpio_set_value(gpioled.led_gpio, 1);
-    cdev_del(&gpioled.cdev);
-    unregister_chrdev_region(gpioled.devid, GPIOLED_CNT);
-    device_destroy(gpioled.class, gpioled.devid);
-    class_destroy(gpioled.class);
     return 0;
 }
 

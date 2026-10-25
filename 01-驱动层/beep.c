@@ -150,21 +150,14 @@ static int led_probe(struct platform_device *pdev)
     return 0;
 }
 
-static int led_remove(struct platform_device *pdev)
+static int beep_remove(struct platform_device *pdev)
 {
-    
-
-    cdev_del(&beep.cdev);
-    unregister_chrdev_region(beep.devid, beep_CNT);
-
     device_destroy(beep.class, beep.devid);
     class_destroy(beep.class);
+    cdev_del(&beep.cdev);
+    unregister_chrdev_region(beep.devid, beep_CNT);
 
     gpio_set_value(beep.beep_gpio, 1);
-    cdev_del(&beep.cdev);
-    unregister_chrdev_region(beep.devid, beep_CNT);
-    device_destroy(beep.class, beep.devid);
-    class_destroy(beep.class);
     return 0;
 }
 

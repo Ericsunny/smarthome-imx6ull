@@ -8,6 +8,7 @@
 #include <linux/gpio.h>
 #include <linux/cdev.h>
 #include <linux/device.h>
+#include <linux/mutex.h>
 #include <linux/of.h>
 #include <linux/of_gpio.h>
 #include <linux/platform_device.h>
@@ -58,6 +59,9 @@ struct hc_sr04_dev {
 
 static struct hc_sr04_dev hc_sr04;
 static wait_queue_head_t hc_sr04_wait;
+/* 单次测距互斥: 复位回波状态→TRIG→等中断 是不可重入序列, 两个进程并发
+ * ioctl 会互相复位/抢中断得到串扰读数(当前应用只有单调用者, 驱动层兜底) */
+static DEFINE_MUTEX(hc_sr04_meas_lock);
 
 /* ECHO 双边沿中断: 上升沿记时刻, 下降沿算脉宽并唤醒读侧 */
 static irqreturn_t hc_sr04_irq_handler(int irq, void *dev_id)
@@ -99,6 +103,11 @@ static long hc_sr04_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
 	if (cmd != HC_SR04_CMD_GET_DIST)
 		return -EINVAL;
 
+	/* 单次测距串行化, 见 hc_sr04_meas_lock 注释 */
+	ret = mutex_lock_interruptible(&hc_sr04_meas_lock);
+	if (ret)
+		return ret;
+
 	/* 1. 复位上次残留的回波状态 */
 	spin_lock_irqsave(&dev->lock, flags);
 	dev->echo_active = false;
@@ -113,10 +122,12 @@ static long hc_sr04_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
 	/* 3. 等中断收完整条回波(IRQ 在 probe 里常驻, 先注册后触发) */
 	ret = wait_event_interruptible_timeout(hc_sr04_wait, dev->echo_done,
 			msecs_to_jiffies(HC_SR04_ECHO_TIMEOUT_MS));
-	if (ret == 0)
-		return -ETIMEDOUT;   /* 超时: 量程外/没接好 */
+	if (ret == 0) {
+		ret = -ETIMEDOUT;    /* 超时: 量程外/没接好 */
+		goto out_unlock;
+	}
 	if (ret < 0)
-		return ret;          /* 被信号打断 */
+		goto out_unlock;     /* 被信号打断 */
 
 	spin_lock_irqsave(&dev->lock, flags);
 	pulse_ns = dev->pulse_ns;
@@ -130,9 +141,11 @@ static long hc_sr04_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
 	if (distance < 2)
 		distance = 2;        /* 模块盲区 2cm */
 
-	if (put_user(distance, (int __user *)arg))
-		return -EFAULT;
-	return 0;
+	ret = put_user(distance, (int __user *)arg) ? -EFAULT : 0;
+
+out_unlock:
+	mutex_unlock(&hc_sr04_meas_lock);
+	return ret;
 }
 
 static int hc_sr04_release(struct inode *inode, struct file *filp)

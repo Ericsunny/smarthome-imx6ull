@@ -99,13 +99,17 @@ static int ap3216c_write_regs(struct ap3216c_dev *dev, u8 reg, u8 *buf, u8 len)
  *   PS: buf[4] 的 bit6 是物体靠近标志, 数据在 bit[3:0] 和 buf[5] 的 bit[5:0]
  * 溢出/无效时直接给 0, 不把标志位混进数值里。
  */
-static void ap3216c_readdata(struct ap3216c_dev *dev)
+static int ap3216c_readdata(struct ap3216c_dev *dev)
 {
     unsigned char i = 0;
     unsigned char buf[6];
+    int ret;
 
-    for (i = 0; i < 6; i++)
-        ap3216c_read_regs(dev, AP3216C_IRDATALOW + i, &buf[i], 1);
+    for (i = 0; i < 6; i++) {
+        ret = ap3216c_read_regs(dev, AP3216C_IRDATALOW + i, &buf[i], 1);
+        if (ret)
+            return ret;   /* I2C 失败: 不把未初始化的栈值拼给用户 */
+    }
 
     if(buf[0] & 0x80)
         dev->ir = 0;
@@ -118,6 +122,7 @@ static void ap3216c_readdata(struct ap3216c_dev *dev)
         dev->ps = 0;
     else
         dev->ps = ((unsigned short)(buf[5] & 0x3F) << 4) | (buf[4] & 0x0F);
+    return 0;
 }
 
 static int ap3216c_open(struct inode *inode, struct file *filp)
@@ -131,19 +136,27 @@ static int ap3216c_open(struct inode *inode, struct file *filp)
     return 0;
 }
 
-static ssize_t ap3216c_read(struct file *filp, char __user *buf, 
+static ssize_t ap3216c_read(struct file *filp, char __user *buf,
     size_t cnt, loff_t *off)
 {
     struct ap3216c_dev *dev = (struct ap3216c_dev *)filp->private_data;
     unsigned short data[3];
-   
-    ap3216c_readdata(dev);
+    int ret;
+
+    /* 接口契约: 一次返回 IR/ALS/PS 三个 u16 共 6 字节。
+     * 不看 cnt 就写 6 字节, 用户只给 1 字节缓冲时会越界写用户空间 */
+    if (cnt < sizeof(data))
+        return -EINVAL;
+
+    ret = ap3216c_readdata(dev);
+    if (ret)
+        return ret;       /* I2C 失败: 返回错误, 不拷栈上垃圾 */
 
     data[0] = dev->ir;
     data[1] = dev->als;
     data[2] = dev->ps;
 
-    if(copy_to_user(buf, data, sizeof(data))) 
+    if(copy_to_user(buf, data, sizeof(data)))
         return -EFAULT;
     return sizeof(data);
 }

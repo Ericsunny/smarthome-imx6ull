@@ -20,6 +20,7 @@
 #include <linux/gpio.h>
 #include <linux/cdev.h>
 #include <linux/device.h>
+#include <linux/mutex.h>
 #include <linux/of.h>
 #include <linux/of_address.h>
 #include <asm/mach/map.h>
@@ -59,6 +60,9 @@ static u64 dht11_irq_time[90];            /* 每个边沿的时间戳(ns)。
                                              一帧理论 82 个边沿, 实测恒 83(帧尾多一个),
                                              数组开 90 留裕量, 边界在 handler 里卡住 */
 static int dht11_skip_cnt;                /* 要跳过的主机边沿计数, 见 handler 里说明 */
+/* 单次测量互斥: 复位状态→起中断→18ms 起始→等帧 是一整个不可重入的序列,
+ * 两个进程并发 read 会互相复位状态/抢中断, 得到串扰数据 */
+static DEFINE_MUTEX(dht11_meas_lock);
 
 
 static int dht11_open(struct inode *inode, struct file *filp)
@@ -169,9 +173,15 @@ static ssize_t dht11_read(struct file *filp, char __user *buf,
 	unsigned char kern_buf[2];
     unsigned long flags;
 
-	/* 协议约定: 只收 2 字节, 湿度整数 + 温度整数 */
-	if (cnt != 2)
+	/* 协议约定: 返回 2 字节(湿度整数+温度整数)。允许比 2 大的读缓冲
+	 * (cat 的 read 都是几十 KB), 拷贝固定 2 字节、返回 2 */
+	if (cnt < 2)
 		return -EINVAL;
+
+	/* 单次测量串行化, 见 dht11_meas_lock 注释 */
+	ret = mutex_lock_interruptible(&dht11_meas_lock);
+	if (ret)
+		return ret;
 
 	/* 每次读之前复位采集状态 */
     spin_lock_irqsave(&dht11_lock, flags);
@@ -186,7 +196,7 @@ static ssize_t dht11_read(struct file *filp, char __user *buf,
 			  IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
 			  "dht11", &dht11);
     if (ret)
-        return ret;
+        goto out_unlock;
 
 	/*  发送18ms低脉冲(起始信号)。
 	 *  read 是进程上下文可睡眠: GPIO 电平由硬件保持, 不需要 CPU 咬着,
@@ -203,26 +213,27 @@ static ssize_t dht11_read(struct file *filp, char __user *buf,
                                            msecs_to_jiffies(100));
 
     free_irq(dht11.irq, &dht11);
-    if( ret == 0)
-    {
-        return -ETIMEDOUT;    /* 超时: 传感器没接好或系统太忙丢了边沿 */
+    if (ret == 0) {
+        ret = -ETIMEDOUT;     /* 超时: 传感器没接好或系统太忙丢了边沿 */
+        goto out_unlock;
     }
-    if (ret < 0){
-        return ret;           /* 被信号打断(Ctrl+C) */
+    if (ret < 0)
+        goto out_unlock;      /* 被信号打断(Ctrl+C) */
+    if (dht11_frame_err) {
+        ret = -EIO;           /* 数据收全了但校验不过 */
+        goto out_unlock;
     }
-    if (dht11_frame_err)
-        return -EIO;          /* 数据收全了但校验不过 */
 
 	kern_buf[0] = dht11.humidity;     /* 湿度整数 */
 	kern_buf[1] = dht11.temperature;  /* 温度整数 */
 
 	/* 拷贝到用户空间 */
 	ret = copy_to_user(buf, kern_buf, 2);
+	ret = ret ? -EFAULT : 2;      /* 成功: 返回实际字节数, 不能 return 0 */
 
-	if(ret){
-        return -EFAULT;
-    }
-	return 2;    /* 返回实际字节数, 不能 return 0 */
+out_unlock:
+	mutex_unlock(&dht11_meas_lock);
+	return ret;
 }
 
 static int dht11_release(struct inode *inode, struct file *filp)
