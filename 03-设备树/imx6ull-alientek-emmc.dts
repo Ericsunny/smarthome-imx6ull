@@ -490,11 +490,8 @@
 				MX6UL_PAD_GPIO1_IO01__GPIO1_IO01  0x1B0B0
 			>;
 		};
-		pinctrl_hcsr505: hcsr505grp{
-			fsl,pins = <
-				MX6ULL_PAD_SNVS_TAMPER2__GPIO5_IO02 0x17059
-			>;
-		};
+		/* hcsr505grp(SNVS_TAMPER2) 原先误挂在此处: MX6ULL_PAD_SNVS_* 引脚
+		 * 必须放在 &iomuxc_snvs 下, 现已移入(见 839 行起的 snvs 区) */
 		pinctrl_pwm3: pwm3grp {
 			fsl,pins = <
 				MX6UL_PAD_GPIO1_IO04__PWM3_OUT  0x110b0
@@ -850,6 +847,15 @@
 			fsl,pins = <
 				MX6ULL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x10B0	/* 28BYJ48 IN3 */
 				MX6ULL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x10B0	/* 28BYJ48 IN4 */
+			>;
+		};
+
+		/* SR505 输出脚: SNVS_TAMPER2 引脚必须在此节点(iomuxc_snvs)配置,
+		 * 原先误挂在普通 &iomuxc 下, pinctrl 会配置失败(引脚默认功能
+		 * 恰好也是 GPIO5_IO02, 所以板子上"看起来能跑") */
+		pinctrl_hcsr505: hcsr505grp {
+			fsl,pins = <
+				MX6ULL_PAD_SNVS_TAMPER2__GPIO5_IO02 0x17059
 			>;
 		};
 
