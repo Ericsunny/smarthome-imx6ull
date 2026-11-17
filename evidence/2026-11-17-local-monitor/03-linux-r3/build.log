@@ -1,0 +1,5 @@
+[ 71%] Built target monitor_core
+Scanning dependencies of target monitor_tests
+[ 85%] Building CXX object CMakeFiles/monitor_tests.dir/tests/monitor_tests.cpp.o
+[100%] Linking CXX executable monitor_tests
+[100%] Built target monitor_tests

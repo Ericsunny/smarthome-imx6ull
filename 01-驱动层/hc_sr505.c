@@ -1,7 +1,6 @@
 #include <linux/types.h>
 #include <linux/kernel.h>
 #include <linux/delay.h>
-#include <linux/ide.h>
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/errno.h>
@@ -9,16 +8,12 @@
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/of.h>
-#include <linux/of_address.h>
-#include <asm/mach/map.h>
-#include <asm/uaccess.h>
-#include <asm/io.h>
+#include <linux/uaccess.h>
 #include <linux/of_gpio.h>
 #include <linux/platform_device.h>
 #include <linux/interrupt.h>
-#include <linux/irq.h>
-#include <linux/of_irq.h>
 #include <linux/poll.h>
+#include <linux/mutex.h>
 
 
 
@@ -42,16 +37,27 @@ struct hc_sr505_dev{
     int event;
     spinlock_t lock;
     wait_queue_head_t r_wait;
+    atomic_t opened;
 };
 
 struct hc_sr505_dev key;
+static DEFINE_MUTEX(read_lock);
 
 
 
 
 static int led_open(struct inode *inode, struct file *filp)
 {
+    unsigned long flags;
+
+    /* One reader: the ABI exposes latest state, not a per-client event queue. */
+    if (atomic_cmpxchg(&key.opened, 0, 1))
+        return -EBUSY;
     filp->private_data = &key;
+    spin_lock_irqsave(&key.lock, flags);
+    key.state = gpio_get_value(key.key_gpio);
+    key.event = 1; /* Initial snapshot, including HIGH before application start. */
+    spin_unlock_irqrestore(&key.lock, flags);
     return 0;
 }
 
@@ -73,34 +79,63 @@ static ssize_t hc_sr505_read(struct file *filp, char __user *buf,
         return -EINVAL;
 
 
-    if (filp->f_flags & O_NONBLOCK){
-        /* 非阻塞: 没有新事件直接 -EAGAIN, 让 APP 自己决定要不要重试 */
-        if (!dev->event)
-        return -EAGAIN;
-    } else {
-        /* 阻塞: 睡在等待队列上等中断唤醒, 不占 CPU */
-        ret = wait_event_interruptible(dev->r_wait, dev->event != 0);
+    ret = mutex_lock_interruptible(&read_lock);
+    if (ret)
+        return ret;
+    for (;;) {
+        spin_lock_irqsave(&dev->lock, flags);
+        if (dev->event) {
+            value = dev->state;
+            dev->event = 0;
+            spin_unlock_irqrestore(&dev->lock, flags);
+            break;
+        }
+        spin_unlock_irqrestore(&dev->lock, flags);
+        if (filp->f_flags & O_NONBLOCK) {
+            ret = -EAGAIN;
+            goto out;
+        }
+        ret = wait_event_interruptible(dev->r_wait, READ_ONCE(dev->event));
         if (ret)
-            return ret;
+            goto out;
     }
+    if (copy_to_user(buf, &value, sizeof(value))) {
+        /* Preserve a newer IRQ if one arrived during the user copy. */
+        spin_lock_irqsave(&dev->lock, flags);
+        if (!dev->event) {
+            dev->state = value;
+            dev->event = 1;
+        }
+        spin_unlock_irqrestore(&dev->lock, flags);
+        wake_up_interruptible(&dev->r_wait);
+        ret = -EFAULT;
+    } else {
+        ret = sizeof(value);
+    }
+out:
+    mutex_unlock(&read_lock);
+    return ret;
+}
 
-    /* 锁内只取值+清标志; copy_to_user 放锁外 —— 拷用户空间可能睡, 不能持自旋锁 */
+static unsigned int hc_sr505_poll(struct file *filp, poll_table *wait)
+{
+    struct hc_sr505_dev *dev = filp->private_data;
+    unsigned long flags;
+    unsigned int mask = 0;
+
+    poll_wait(filp, &dev->r_wait, wait);
     spin_lock_irqsave(&dev->lock, flags);
-
-    value = dev->state;
-    dev->event = 0;
+    if (dev->event)
+        mask = POLLIN | POLLRDNORM;
     spin_unlock_irqrestore(&dev->lock, flags);
-
-    if(copy_to_user(buf, &value, sizeof(value)))
-        return -EFAULT;
-
-    return sizeof(value);
+    return mask;
 }
 
 
 
 static int led_release(struct inode *inode, struct file *filp)
 {
+    atomic_set(&key.opened, 0);
     return 0;
 }
 
@@ -109,6 +144,7 @@ static struct file_operations key_fops ={
     .owner = THIS_MODULE,
     .open = led_open,
     .read = hc_sr505_read,
+    .poll = hc_sr505_poll,
     .release = led_release,
 };
 
@@ -166,6 +202,7 @@ static int hc_sr505_probe(struct platform_device *pdev)
     key.state = 0;
     key.event = 0;
     spin_lock_init(&key.lock);
+    atomic_set(&key.opened, 0);
 
     key.irqnum = gpio_to_irq(key.key_gpio);
     if (key.irqnum < 0){

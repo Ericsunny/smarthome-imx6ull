@@ -1,0 +1,28 @@
+UpdateCTestConfiguration  from :/tmp/imx6ull-monitor-20261117.RHn7Lw/build-sanitized/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/tmp/imx6ull-monitor-20261117.RHn7Lw/build-sanitized/DartConfiguration.tcl
+Test project /tmp/imx6ull-monitor-20261117.RHn7Lw/build-sanitized
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: monitor_core
+
+1: Test command: /tmp/imx6ull-monitor-20261117.RHn7Lw/build-sanitized/monitor_tests
+1: Test timeout computed to be: 20
+1: PASS startup_motion_mute_rearm
+1: PASS environment_hysteresis_failure
+1: PASS freshness_independent_causes
+1: PASS invalid_data_config
+1: {"measurement":"gated_dht_host_substitute","light_samples_while_dht_blocked":4,"max_light_gap_ms":21,"stop_ms":1,"board_proof":false}
+1: PASS sampling_isolation_stop
+1: PASS output_failure_recovery
+1: PASS platform_node_rejection
+1: {"suite":"monitor_core","tests":7,"failures":0,"board_proof":false}
+1/1 Test #1: monitor_core .....................   Passed    0.10 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.10 sec

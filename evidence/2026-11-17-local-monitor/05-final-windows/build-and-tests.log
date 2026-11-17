@@ -1,0 +1,108 @@
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: D:/vm/github/smarthome-imx6ull/build-windows
+[1/4] Automatic MOC for target smarthome
+[2/3] Building CXX object CMakeFiles/smarthome.dir/app/mainwindow.cpp.obj
+[3/3] Linking CXX executable smarthome.exe
+UpdateCTestConfiguration  from :D:/vm/github/smarthome-imx6ull/build-windows/DartConfiguration.tcl
+Test project D:/vm/github/smarthome-imx6ull/build-windows
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: monitor_core
+
+1: Test command: D:\vm\github\smarthome-imx6ull\build-windows\monitor_tests.exe
+1: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+1: Test timeout computed to be: 20
+1: PASS startup_motion_mute_rearm
+1: PASS environment_hysteresis_failure
+1: PASS freshness_independent_causes
+1: PASS invalid_data_config
+1: {"measurement":"gated_dht_host_substitute","light_samples_while_dht_blocked":4,"max_light_gap_ms":35,"stop_ms":1,"board_proof":false}
+1: PASS sampling_isolation_stop
+1: PASS output_failure_recovery
+1: PASS platform_node_rejection
+1: {"suite":"monitor_core","tests":7,"failures":0,"board_proof":false}
+1/3 Test #1: monitor_core .....................   Passed    0.12 sec
+test 2
+    Start 2: qt_simulated_workflow
+
+2: Test command: D:\vm\github\smarthome-imx6ull\build-windows\smarthome.exe "--simulate" "--smoke-test"
+2: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+2: Environment variables: 
+2:  QT_QPA_PLATFORM=offscreen
+2: Test timeout computed to be: 15
+2: {"causes":0,"event":"dht_ok","monotonic_ms":36631520,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36631520,"simulated":true}
+2: {"causes":0,"event":"pir_event","monotonic_ms":36631520,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36631559,"simulated":true}
+2: {"causes":0,"event":"dht_ok","monotonic_ms":36631581,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36631606,"simulated":true}
+2: {"causes":0,"event":"dht_ok","monotonic_ms":36631637,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36631653,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36631684,"simulated":true}
+2: {"causes":0,"event":"dht_ok","monotonic_ms":36631702,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36631716,"simulated":true}
+2: {"causes":0,"event":"armed","monotonic_ms":36631719,"simulated":true}
+2: {"causes":2,"event":"pir_event","monotonic_ms":36631720,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631748,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36631763,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631780,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631811,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36631827,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631842,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631873,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36631888,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631905,"simulated":true}
+2: {"causes":2,"event":"silenced","monotonic_ms":36631920,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631936,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36631952,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631967,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36631998,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36632012,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36632029,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36632061,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36632077,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36632092,"simulated":true}
+2: {"causes":0,"event":"disarmed","monotonic_ms":36632121,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632123,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36632139,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632154,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632186,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36632200,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632217,"simulated":true}
+2: {"causes":0,"event":"output_failure_observed","monotonic_ms":36632220,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632248,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36632263,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632279,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632311,"simulated":true}
+2: {"causes":0,"event":"output_recovered","monotonic_ms":36632320,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36632328,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632341,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632372,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36632388,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632404,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632449,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36632452,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36632496,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36632513,"simulated":true}
+2: {"dht_attempts":17,"dht_failures":7,"light_attempts":30,"pass":true,"qt_version":"6.11.1","rendered":true,"simulated":true,"test":"qt_simulated_workflow"}
+2: {"causes":0,"event":"shutdown_outputs_off","monotonic_ms":36632523,"simulated":true}
+2/3 Test #2: qt_simulated_workflow ............   Passed    1.06 sec
+test 3
+    Start 3: reject_implicit_simulation
+
+3: Test command: D:\vm\github\smarthome-imx6ull\build-windows\smarthome.exe "--smoke-test"
+3: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+3: Test timeout computed to be: 5
+3: --smoke-test requires explicit --simulate
+3/3 Test #3: reject_implicit_simulation .......   Passed    0.02 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   1.20 sec

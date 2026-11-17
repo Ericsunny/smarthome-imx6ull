@@ -1,0 +1,12 @@
+[1/12] Building CXX object CMakeFiles/monitor_core.dir/core/monitor.cpp.obj
+[2/12] Building CXX object CMakeFiles/monitor_core.dir/core/devices.cpp.obj
+[3/12] Building CXX object CMakeFiles/monitor_core.dir/core/linux_devices.cpp.obj
+[4/12] Building CXX object CMakeFiles/monitor_core.dir/core/sampling.cpp.obj
+[5/12] Linking CXX static library libmonitor_core.a
+[6/12] Building CXX object CMakeFiles/monitor_tests.dir/tests/monitor_tests.cpp.obj
+[7/12] Linking CXX executable monitor_tests.exe
+[8/12] Automatic MOC for target smarthome
+[9/12] Building CXX object CMakeFiles/smarthome.dir/smarthome_autogen/mocs_compilation.cpp.obj
+[10/12] Building CXX object CMakeFiles/smarthome.dir/app/main.cpp.obj
+[11/12] Building CXX object CMakeFiles/smarthome.dir/app/mainwindow.cpp.obj
+[12/12] Linking CXX executable smarthome.exe

@@ -1,0 +1,7 @@
+make: Entering directory '/usr/src/linux-headers-5.4.0-216-generic'
+  CC [M]  /tmp/imx6ull-monitor-20261117.RHn7Lw/build-driver/hc_sr505.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC [M]  /tmp/imx6ull-monitor-20261117.RHn7Lw/build-driver/hc_sr505.mod.o
+  LD [M]  /tmp/imx6ull-monitor-20261117.RHn7Lw/build-driver/hc_sr505.ko
+make: Leaving directory '/usr/src/linux-headers-5.4.0-216-generic'

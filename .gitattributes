@@ -1,0 +1,2 @@
+# Preserve compiler/test logs verbatim, including emitted trailing spaces.
+evidence/**/*.log -text -whitespace

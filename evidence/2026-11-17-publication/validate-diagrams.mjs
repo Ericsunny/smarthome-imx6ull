@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import {JSDOM} from 'jsdom';
+const dom = new JSDOM('<!doctype html><html><body></body></html>');
+globalThis.window = dom.window;
+globalThis.document = dom.window.document;
+const {default: mermaid} = await import('mermaid');
+mermaid.initialize({startOnLoad:false, securityLevel:'strict'});
+const source = fs.readFileSync(process.argv[2], 'utf8');
+const diagrams = [...source.matchAll(/```mermaid\r?\n([\s\S]*?)```/g)];
+if (diagrams.length !== 2) throw new Error('Expected two architecture diagrams');
+const types = [];
+for (const diagram of diagrams) types.push((await mermaid.parse(diagram[1])).diagramType);
+console.log(JSON.stringify({pass:true, diagrams:diagrams.length, types, parser:'mermaid 11.12.0'}));

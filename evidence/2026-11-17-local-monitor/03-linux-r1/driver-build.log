@@ -1,0 +1,9 @@
+make: Entering directory '/usr/src/linux-headers-5.4.0-216-generic'
+  CC [M]  /tmp/imx6ull-monitor-20261117.RHn7Lw/build-driver/hc_sr505.o
+/tmp/imx6ull-monitor-20261117.RHn7Lw/build-driver/hc_sr505.c:13:10: fatal error: asm/mach/map.h: No such file or directory
+   13 | #include <asm/mach/map.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+make[1]: *** [scripts/Makefile.build:270: /tmp/imx6ull-monitor-20261117.RHn7Lw/build-driver/hc_sr505.o] Error 1
+make: *** [Makefile:1783: /tmp/imx6ull-monitor-20261117.RHn7Lw/build-driver] Error 2
+make: Leaving directory '/usr/src/linux-headers-5.4.0-216-generic'

@@ -1,0 +1,101 @@
+UpdateCTestConfiguration  from :D:/vm/github/smarthome-imx6ull/build-windows/DartConfiguration.tcl
+Test project D:/vm/github/smarthome-imx6ull/build-windows
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: monitor_core
+
+1: Test command: D:\vm\github\smarthome-imx6ull\build-windows\monitor_tests.exe
+1: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+1: Test timeout computed to be: 20
+1: PASS startup_motion_mute_rearm
+1: PASS environment_hysteresis_failure
+1: PASS freshness_independent_causes
+1: PASS invalid_data_config
+1: {"measurement":"gated_dht_host_substitute","light_samples_while_dht_blocked":4,"max_light_gap_ms":32,"stop_ms":0,"board_proof":false}
+1: PASS sampling_isolation_stop
+1: PASS output_failure_recovery
+1: PASS platform_node_rejection
+1: {"suite":"monitor_core","tests":7,"failures":0,"board_proof":false}
+1/3 Test #1: monitor_core .....................   Passed    0.12 sec
+test 2
+    Start 2: qt_simulated_workflow
+
+2: Test command: D:\vm\github\smarthome-imx6ull\build-windows\smarthome.exe "--simulate" "--smoke-test"
+2: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+2: Environment variables: 
+2:  QT_QPA_PLATFORM=offscreen
+2: Test timeout computed to be: 15
+2: {"causes":0,"event":"dht_ok","monotonic_ms":36073725,"simulated":true}
+2: {"causes":0,"event":"pir_event","monotonic_ms":36073725,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36073725,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36073757,"simulated":true}
+2: {"causes":0,"event":"dht_ok","monotonic_ms":36073780,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36073788,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36073819,"simulated":true}
+2: {"causes":0,"event":"dht_ok","monotonic_ms":36073841,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36073850,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36073882,"simulated":true}
+2: {"causes":0,"event":"dht_ok","monotonic_ms":36073905,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36073913,"simulated":true}
+2: {"causes":0,"event":"armed","monotonic_ms":36073924,"simulated":true}
+2: {"causes":2,"event":"pir_event","monotonic_ms":36073924,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36073945,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36073966,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36073976,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074012,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36074029,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074044,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074076,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36074092,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074108,"simulated":true}
+2: {"causes":2,"event":"silenced","monotonic_ms":36074124,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074153,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36074155,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074184,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074216,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36074217,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074248,"simulated":true}
+2: {"causes":2,"event":"dht_ok","monotonic_ms":36074278,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074279,"simulated":true}
+2: {"causes":2,"event":"light_ok","monotonic_ms":36074311,"simulated":true}
+2: {"causes":0,"event":"disarmed","monotonic_ms":36074324,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074341,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36074345,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074373,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36074405,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074405,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074436,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074468,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36074468,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074500,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36074530,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074532,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074563,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36074593,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074595,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074626,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36074653,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074657,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074689,"simulated":true}
+2: {"causes":0,"event":"light_ok","monotonic_ms":36074721,"simulated":true}
+2: {"causes":0,"event":"dht_failed","monotonic_ms":36074721,"simulated":true}
+2: {"dht_attempts":17,"dht_failures":7,"light_attempts":32,"pass":true,"qt_version":"6.11.1","rendered":true,"simulated":true,"test":"qt_simulated_workflow"}
+2: {"causes":0,"event":"shutdown_outputs_off","monotonic_ms":36074727,"simulated":true}
+2/3 Test #2: qt_simulated_workflow ............   Passed    1.09 sec
+test 3
+    Start 3: reject_implicit_simulation
+
+3: Test command: D:\vm\github\smarthome-imx6ull\build-windows\smarthome.exe "--smoke-test"
+3: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+3: Test timeout computed to be: 5
+3: --smoke-test requires explicit --simulate
+3/3 Test #3: reject_implicit_simulation .......   Passed    0.02 sec
+
+100% tests passed, 0 tests failed out of 3
+
+Total Test time (real) =   1.23 sec

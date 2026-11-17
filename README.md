@@ -1,120 +1,80 @@
-# 嵌入式 Linux 多外设驱动与 Qt 应用系统（i.MX6ULL 智能安防）
+# i.MX6ULL 环境监测与本地报警终端
 
-在正点原子 ATK-IMX6ULL 上从零写 8 类外设的 Linux 驱动、用设备树声明硬件、再用 Qt 多线程应用把它们串成一台可布防/撤防的智能安防终端——**项目的主线是"驱动 ↔ 设备树 ↔ 应用层"这三层怎么接起来**，安防功能只是这条主线的载体。
+面向固定室内的小型实验室场景：周期采集温湿度和光照、监听红外活动输入，在本地显示有效数据、故障和报警状态。当前主程序保留 **DHT11、AP3216C、HC-SR505、LED、蜂鸣器和 Qt 界面**。
 
-![Arch](https://img.shields.io/badge/Board-ATK--IMX6ULL_Cortex--A7-blue) ![Kernel](https://img.shields.io/badge/Kernel-4.1.15-green) ![QT](https://img.shields.io/badge/QT-5.12.9-green) ![OpenCV](https://img.shields.io/badge/OpenCV-3.4.1-yellow)
+本轮从多功能整机演示收敛范围，重点解决一个传感器失败拖慢其他采集、旧数据被当作当前状态，以及报警和线程退出缺少明确契约的问题。视觉、远端考勤与电机联动不参与当前主程序。
 
-> 平台：NXP i.MX6ULL（ARM Cortex-A7 @ 792MHz）· 内核：Linux 4.1.15 · 工具链：arm-linux-gnueabihf-gcc（linaro 4.9.4）· 应用：Qt 5.12.9 交叉编译
+**验证状态：Windows Qt 6.11.1 原生界面和模拟业务流程已运行；C++11 核心及 Linux 后端通过 x86_64 主机测试与 ASan/UBSan。新版本尚未部署到 i.MX6ULL，Qt 5.12.9/ARM 构建及物理指标待验证。** [结果与边界](docs/improvement/results.md)
 
-## 系统架构
+[当前架构与数据链路](docs/overview/architecture.md) · [场景与设计取舍](docs/overview/project-brief.md) · [文档入口](docs/README.md)
 
-```
-┌─────────────────────────────────────────────────┐
-│  Qt 应用层 (C++11, 5 线程: UI + 4 Worker)        │
-│  布防/撤防状态机 · 多传感器融合报警 · 曲线图      │
-│  deviceio.cpp = 所有 /dev 节点的统一封装层        │
-├─────────────────────────────────────────────────┤
-│  接口协议层 (/dev 节点 + read/write/ioctl)       │
-│  逐设备接口契约见 04-接口协议/                    │
-├─────────────────────────────────────────────────┤
-│  驱动层 (手写 8 模块, ~2100 行 C)                │
-│  7 × platform_driver + 设备树(GPIO/PWM/中断)     │
-│  1 × i2c_driver (AP3216C, 见下"出厂驱动冲突")    │
-│  + uvcvideo (USB 摄像头, 内核自带)               │
-├─────────────────────────────────────────────────┤
-│  i.MX6ULL 4.1.15 BSP + 设备树 (9 个自定义节点)   │
-└─────────────────────────────────────────────────┘
-```
+## 使用条件与功能边界
 
-每一层的连接方式都是显式的：应用只认 `/dev` 节点和 ioctl 命令字（`04-接口协议/` 是完整契约表）；驱动只认设备树里的 `compatible` 与引脚/pinctrl（`03-设备树/自定义节点摘录.dts` 是全部 9 个节点的原文）。
+- 本地监测与报警不依赖摄像头、OpenCV、服务器或网络连接。
+- PIR 是活动模块的高低电平，不能确认身份或精确判断人员持续在场。
+- DHT11 和光照值未做计量标定；光照为 BSP 原始读数的近似换算，不用于精密测量或安全控制。
+- 故障、过期、上次成功值和当前有效值分别显示；输出请求与写接口成功分开显示，物理动作仍需实测。
+- 历史整机使用 ATK-i.MX6ULL / Linux 4.1.15 / Qt 5.12.9。新代码的 Windows/主机验证不能替代该环境的验收。
 
-## 演示与文档
+## 关键实现
 
-- **整机操作脚本**：[M5-整机演示流程.md](M5-整机演示流程.md)（布防→触发→联动→撤防全流程）
-- **项目总回顾**：[00-项目总回顾.md](00-项目总回顾.md)（每个模块的踩坑与修法）
-- **摄像头链路验收**：[摄像头验收文档.md](摄像头验收文档.md)
-- 实物图/演示视频：视频已录制，暂为私有资料，仓库内暂缺
+| 问题 | 实现与取舍 | 已有验证 |
+|---|---|---|
+| 一个传感器重试延迟其他采集 | 温湿度、光照和 PIR 独立工作线程；每周期一次测量，取消串行三次睡眠重试 | 故意阻塞 DHT11 的替身测试中，光照仍持续更新；真板耗时未测 |
+| 读取失败后仍显示旧值 | 每输入保存最近尝试、最近成功、失败次数和错误；失败立即无效，超期标 stale | 核心测试覆盖失败、恢复、时间过期、无效数值 |
+| 报警和故障混用 | 独立业务核心处理布撤防、活动、超限回差、静音和故障 | 状态序列测试与 Qt 自动操作；没有现场误漏报数据 |
+| 阻塞监听难以退出 | 非阻塞 PIR read 配合 poll；工作线程停止后 join，再关闭后端 | 主机可取消替身退出测试；真实内核不返回时不能保证期限 |
+| 应用 poll 与驱动不匹配 | HC-SR505 补 .poll、首次电平快照和单读取者约束；应用遇旧契约 EPROTO 后退避 | Linux 5.4 x86_64 内核模块编译；未加载、未在目标 BSP 验证 |
 
-## 仓库结构
+温湿度默认每 2 秒尝试一次，光照每 1 秒一次；有效期默认 5 秒。温度 >=30℃ 或湿度 >=75% 置超限，温度 <=28℃ 且湿度 <=70% 才解除。参数是当前策略，不是硬件性能保证。
 
-```
-01-驱动层/       8 个模块驱动 + 8 个测试程序(*App.c, 含 beepApp) + Makefile
-02-应用层QT/     Qt 工程(smarthome.pro) + deviceio 封装层 + 工作线程 + 板上一键启动脚本
-03-设备树/       完整 dts(基于出厂 dts 加 9 节点) + 自定义节点摘录
-04-接口协议/     8 个 /dev 节点的接口契约与已知坑
-05-摄像头工具/   camcap(V4L2 抓图) + facetest(人脸链路诊断)
+## 快速开始：Windows 模拟运行
+
+本机已验证 Qt 为 `D:\qt_install\6.11.1\mingw_64`，编译器为 `D:\qt_install\Tools\mingw1310_64`。CMake/Ninja 不在 PATH 时传入完整路径：
+
+```powershell
+$cmake = 'C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe'
+$ninja = 'C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja'
+.\tools\build-windows.ps1 -CMake $cmake -NinjaDir $ninja
+.\tools\run-windows.ps1
+# 自动化离屏模拟操作；不连接硬件
+.\tools\run-windows.ps1 -SmokeTest
 ```
 
-## 复现指南
+也可在 Qt Creator 中打开 `app/smarthome.pro`，选择 MinGW 64 位 kit，运行参数设置为 `--simulate`。Windows 未指定模拟时明确报错，不隐式生成传感器数据。
 
-**环境（作者实测组合）**
+界面可模拟活动高/低、DHT11 故障、温度超限与输出失败。模拟按钮只在模拟模式出现；画面明确标注其验证范围。Windows 离屏插件需可读字体，本机使用系统微软雅黑；其他环境可通过 `MONITOR_FONT` 指定字体文件。
 
-| 项 | 值 |
+## Linux 构建
+
+仅构建核心与测试，无需 Qt：
+
+```sh
+cmake -S . -B build-linux -DBUILD_GUI=OFF
+cmake --build build-linux -j2
+(cd build-linux && ctest -V)
+```
+
+有 Qt 5/6 Widgets 开发环境时使用 CMake 默认配置，或 `qmake app/smarthome.pro`。核心使用 C++11；Qt 6 界面使用 C++17。当前主程序没有 OpenCV 链接依赖。
+
+Linux 真设备模式通过 `dht11`、`ap3216c`、`hc_sr505`、`led`、`beep` 字符设备访问硬件，默认路径 `/dev`。必须先核对驱动 ABI、节点占用和引脚。`tools/run-local-monitor.sh` 仅执行预构建程序，不自动加载模块、改网络、杀其他界面或改启动配置。
+
+## 目录与历史
+
+| 路径 | 用途 |
 |---|---|
-| 板卡 | 正点原子 ATK-IMX6ULL（EMMC 版，Cortex-A7 792MHz） |
-| 内核 | 4.1.15（正点原子 alpha 出厂内核源码包） |
-| 驱动交叉工具链 | arm-linux-gnueabihf-（linaro 4.9.4） |
-| Qt/应用工具链 | poky SDK gcc 5.3（`environment-setup-cortexa7hf-neon-poky-linux-gnueabi`） |
-| 依赖 | Qt 5.12.9 · OpenCV 3.4.1(ARM 版) · tslib；考勤另需 PC 端 SeetaFace2 + SQLite |
-| 部署方式 | 驱动/应用经 TFTP + NFS rootfs（也可拷贝 EMMC）；设备树经 TFTP 加载 |
+| `core/` | 与 Qt 无关的状态规则、独立采集、模拟及 Linux 设备后端 |
+| `app/` | 当前 Qt Widgets 主程序 |
+| `tests/` | 核心与慢输入隔离的主机测试 |
+| `tools/` | 构建/启动脚本、Linux 验证脚本、待板测的 PIR 契约检查器 |
+| `01-驱动层/`、`03-设备树/` | 驱动和历史 BSP 设备树；本轮修改 HC-SR505 契约 |
+| `02-应用层QT/`、`05-摄像头工具/` | 历史应用与独立视觉实验，不参与当前构建 |
+| `docs/improvement/`、`evidence/` | 场景、过程、测试、失败轮次与适用范围 |
 
-**1. 驱动**
+[工作记录](docs/improvement/worklog.md) · [环境恢复清单](docs/improvement/board-restoration.md) · [收敛前首页](https://github.com/Ericsunny/smarthome-imx6ull/blob/e015dddc4c8d661db2c4fadc179762b7a431539b/README.md)
 
-```bash
-cd 01-驱动层
-# Makefile 的 KDIR 指向你的 4.1.15 内核树(作者开发时为正点原子出厂内核源码解包路径),改成你的
-make                      # 生成 led.ko beep.ko ap3216c.ko dht11.ko hc_sr505.ko hc_sr04.ko sg90.ko step28byj48.ko
-# 测试程序(交叉编译;或在板上直接 gcc)
-arm-linux-gnueabihf-gcc ledApp.c -o ledApp     # 其余 *App.c 同法
-```
-
-**2. 设备树**：`03-设备树/imx6ull-alientek-emmc.dts` 基于出厂 dts 追加 9 个自定义节点（含双控制器 pinctrl），`make dtbs` 或 `dtc` 编译后按你的启动方式部署（作者经 TFTP 加载）。
-
-**3. Qt 应用**
-
-```bash
-source /opt/fsl-imx-x11/4.1.15-2.1.0/environment-setup-cortexa7hf-neon-poky-linux-gnueabi
-cd 02-应用层QT && qmake && make -j4
-# 板上: ./smarthome.sh (一键配置 tslib 环境并启动)
-```
-
-**4. 逐模块加载与测试**
-
-| 模块 | /dev 节点 | 加载 | 最小测试 | 状态 |
-|---|---|---|---|---|
-| led | /dev/led | `insmod led.ko` | `./ledApp /dev/led 1` | 板端已测 |
-| beep | /dev/beep | `insmod beep.ko` | `./beepApp /dev/beep 1` | 板端已测 |
-| dht11 | /dev/dht11 | `insmod dht11.ko` | `cat /dev/dht11`（[湿][温]） | 板端已测 |
-| hc_sr505 | /dev/hc_sr505 | `insmod hc_sr505.ko` | `cat`（阻塞读，1=有人） | 板端已测 |
-| hc_sr04 | /dev/hc_sr04 | `insmod hc_sr04.ko` | `./hc_sr04App`（ioctl 距离 cm） | 板端已测 |
-| sg90 | /dev/sg90 | `insmod sg90.ko` | `./sg90App 90`（角度 0~180） | 板端已测 |
-| step28byj48 | /dev/step28byj48 | `insmod step28byj48.ko` | `./step28byj48App ±N`（正开负关窗帘） | 板端已测 |
-| ap3216c | /dev/ap3216c | 见下 | ioctl 读 ALS/PS/IR | **可编译；板上受限**（见下） |
-
-**出厂驱动冲突（ap3216c）**：出厂内核把 AP3216C 驱动**编死在内核里**（不可卸载、开机即占用 I2C 地址），自写的 `ap3216c.c`（i2c_driver + id_table，老内核 4.1.15 惯例）在仓库中可编译，但整机方案最终采用内核自带驱动、应用层按其 ioctl 接口适配（`04-接口协议/` §ap3216c 记录了判别方法：`dd` 读 0 字节即出厂驱动）。这是一次真实的"冲突→适配"工程决策，不是缺陷。
-
-**5. 摄像头与考勤（板端已测）**：`05-摄像头工具/camcap`（V4L2 mmap + 格式枚举协商）与 `facetest`（Haar→LBPH 链路诊断）；考勤走 TCP（8 字节长度头 + JPEG + JSON）对接 PC 端 SeetaFace2 服务器，实测 0.2s/人。
-
-## 关键技术
-
-| 模块 | 技术 | 亮点 |
-|------|------|------|
-| DHT11 | 双边沿中断 + ktime_get_ns 时间戳解码 | 微秒级单总线时序，不用忙等 |
-| HC-SR04 | 双边沿中断测脉宽 + div_u64 | cm = us / 58 |
-| SG90 | PWM 子系统 50Hz | 0.5~2.5ms ↔ 0~180° |
-| 28BYJ48 | 四相八拍 + usleep_range | 4096 拍/圈，mutex 保护 |
-| AP3216C | i2c_driver，两条 msg 随机读 | id_table 匹配（老内核惯例） |
-| 摄像头 | V4L2 mmap + Haar + LBPH | 格式枚举协商 + ROI 跟踪 |
-| 考勤 | TCP + SeetaFace2 + SQLite | 独立收发线程（JPEG 编码 200~400ms/帧不进采集线程） |
-| 报警 | 多传感器融合 | SR505+摄像头双确认，布防/撤防状态机 |
-
-## 边界（诚实清单）
-
-- 考勤链依赖 PC 端 SeetaFace2 服务器（单板算力不做识别服务端）；
-- AP3216C 整机走内核自带驱动（见上）；
-- 稳定性以整机演示 + 功能验收为准，未做 24h 连续压测；
-- 演示视频为私有资料，未随仓库发布。
+原项目的驱动、摄像头、考勤和执行器实验保留为历史材料；不同版本的能力与结果不合并成当前系统。历史文档中的 CPU、采样失败率、识别耗时等数字，本轮未作为新结果引用。
 
 ## License
 
-自写的驱动、应用与工具代码以 [MIT](LICENSE) 提供；`03-设备树/` 的完整 dts 基于 NXP/正点原子 BSP 修改，遵循原 BSP 授权，不在 MIT 范围内。
+自写驱动、应用与工具遵循 [MIT](LICENSE)；基于 NXP/正点原子 BSP 的完整设备树遵循原 BSP 授权。

@@ -1,0 +1,9 @@
+{
+  "source_files": 30,
+  "linux_sources_verified": 9,
+  "new_docs_links_checked": true,
+  "secrets_pattern_matches": 0,
+  "visual_qa_passed": true,
+  "board_actions": 0,
+  "git_commit_or_push": false
+}

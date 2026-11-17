@@ -1,0 +1,47 @@
+[
+  {
+    "path": "core/devices.cpp",
+    "sha256": "7eb7e7ed9b82026d8ff414833ce1efc4e45f0ea55959a94a74e786ecc128e525",
+    "matches_final_source": true
+  },
+  {
+    "path": "core/devices.h",
+    "sha256": "acc234d8e544e24293c4ae0dfcf3ad3fb6fcdbb228b2f00100d89e08633c85c0",
+    "matches_final_source": true
+  },
+  {
+    "path": "core/linux_devices.cpp",
+    "sha256": "84ff92ba1b91aea3d93558890187953b78f3cf8d0ad7823b4733ae33ceb15dca",
+    "matches_final_source": true
+  },
+  {
+    "path": "core/monitor.cpp",
+    "sha256": "57a4dde3a21c1915ac4b8f356eca3163ea3ce01b74e7d109c24bfe9f35d6e404",
+    "matches_final_source": true
+  },
+  {
+    "path": "core/monitor.h",
+    "sha256": "cfa3f5f6deed150d113159f2098848e4ac5c8f0cd4f34846acef4f5c2c4551ed",
+    "matches_final_source": true
+  },
+  {
+    "path": "core/sampling.cpp",
+    "sha256": "5a156fc40dab6b2f540000a7765a197b8e191e8fc93536b45292d9b19a96ee1a",
+    "matches_final_source": true
+  },
+  {
+    "path": "core/sampling.h",
+    "sha256": "b20a89e408fdd42863e9721fa2a3ed60db4cc4668cef73ede8025dbc3154c06b",
+    "matches_final_source": true
+  },
+  {
+    "path": "tests/monitor_tests.cpp",
+    "sha256": "6bdbb5b681f6bd3d2cbfbf9ce5678cb775fe481211b1a15de6a5f6ceecbdc2f2",
+    "matches_final_source": true
+  },
+  {
+    "path": "01-驱动层/hc_sr505.c",
+    "sha256": "48ddaf1def24d97ef43414da5e9cfc17697909a834b62e207cbcf47a313df5ba",
+    "matches_final_source": true
+  }
+]

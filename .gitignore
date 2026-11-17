@@ -7,5 +7,9 @@ Module.symvers
 build-*/
 *.pro.user
 smarthome
-*App
+/01-驱动层/*App
 moc_*
+*.exe
+CMakeUserPresets.json
+.local-notes/
+evidence/2026-11-17-local-monitor/00-baseline/original-worktree-status.txt

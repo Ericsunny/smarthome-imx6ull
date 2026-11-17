@@ -1,0 +1,10 @@
+{
+  "tested_sources_unchanged": true,
+  "tested_source_count": 16,
+  "documentation_files": 9,
+  "local_links_checked": 39,
+  "windows_ctest_passed": 4,
+  "board_validation": false,
+  "remote_main_before": "e015dddc4c8d661db2c4fadc179762b7a431539b",
+  "remote_main_protected": false
+}

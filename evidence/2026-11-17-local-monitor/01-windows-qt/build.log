@@ -1,0 +1,7 @@
+mingw32-make: Entering directory 'D:/vm/github/smarthome-imx6ull/build-qt-probe'
+D:/qt_install/Tools/mingw1310_64/bin/mingw32-make -f Makefile.Release
+mingw32-make[1]: Entering directory 'D:/vm/github/smarthome-imx6ull/build-qt-probe'
+g++ -c -fno-keep-inline-dllexport -O2 -std=gnu++1z -Wall -Wextra -Wextra -fexceptions -mthreads -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I../evidence/2026-11-17-local-monitor/01-windows-qt -I. -I../../../../qt_install/6.11.1/mingw_64/include -I../../../../qt_install/6.11.1/mingw_64/include/QtWidgets -I../../../../qt_install/6.11.1/mingw_64/include/QtGui -I../../../../qt_install/6.11.1/mingw_64/include/QtCore -Irelease -I/include -I../../../../qt_install/6.11.1/mingw_64/mkspecs/win32-g++  -o release\probe.o ..\evidence\2026-11-17-local-monitor\01-windows-qt\probe.cpp
+g++ -Wl,-s -Wl,-subsystem,console -mthreads -o release\qt_probe.exe release/probe.o D:\qt_install\6.11.1\mingw_64\lib\libQt6Widgets.a D:\qt_install\6.11.1\mingw_64\lib\libQt6Gui.a D:\qt_install\6.11.1\mingw_64\lib\libQt6Core.a   
+mingw32-make[1]: Leaving directory 'D:/vm/github/smarthome-imx6ull/build-qt-probe'
+mingw32-make: Leaving directory 'D:/vm/github/smarthome-imx6ull/build-qt-probe'

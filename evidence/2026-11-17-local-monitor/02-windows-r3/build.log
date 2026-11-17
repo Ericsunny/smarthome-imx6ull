@@ -1,0 +1,4 @@
+[1/5] Automatic MOC for target smarthome
+[2/4] Building CXX object CMakeFiles/smarthome.dir/app/main.cpp.obj
+[3/4] Building CXX object CMakeFiles/smarthome.dir/app/mainwindow.cpp.obj
+[4/4] Linking CXX executable smarthome.exe

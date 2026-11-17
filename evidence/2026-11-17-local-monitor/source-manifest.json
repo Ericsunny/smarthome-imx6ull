@@ -1,0 +1,152 @@
+[
+  {
+    "path": ".gitignore",
+    "bytes": 135,
+    "sha256": "e45d122fd61b2b710c99488e6def67d85de07990cbb95c48232f63ba1ac76b6d"
+  },
+  {
+    "path": "01-驱动层/hc_sr505.c",
+    "bytes": 7416,
+    "sha256": "48ddaf1def24d97ef43414da5e9cfc17697909a834b62e207cbcf47a313df5ba"
+  },
+  {
+    "path": "02-应用层QT/README.md",
+    "bytes": 486,
+    "sha256": "5e1001ffa67a63dcc8739becb62656b2ce994e771a0528d61619b8e992ecd8c3"
+  },
+  {
+    "path": "app/bridge.h",
+    "bytes": 389,
+    "sha256": "a553351c2015453c4e8363064b367bee08fba48594eaa46358c907ee909d6594"
+  },
+  {
+    "path": "app/main.cpp",
+    "bytes": 2497,
+    "sha256": "127b2ff9d459dd40666a007cef767f3ad3d8b97743d7981f153aa57574e1715e"
+  },
+  {
+    "path": "app/mainwindow.cpp",
+    "bytes": 10683,
+    "sha256": "a056427d1a9b7ca6684b2ef3bcf3b1000bc27e190d6c14b140b60c13ef245238"
+  },
+  {
+    "path": "app/mainwindow.h",
+    "bytes": 1413,
+    "sha256": "b8ab7b4804ac158ee39a14066be1f23a89ff40c2b4bbb65599020e6d72b0f646"
+  },
+  {
+    "path": "app/smarthome.pro",
+    "bytes": 405,
+    "sha256": "8d1153f1b2ba9024df1d943512efb6a659313b211106633883d9eaf8a30006b0"
+  },
+  {
+    "path": "CMakeLists.txt",
+    "bytes": 2187,
+    "sha256": "abcff4c53d211dc064f1a4c2ea09901c11829216a2ef85b974d950f42f251411"
+  },
+  {
+    "path": "core/devices.cpp",
+    "bytes": 2015,
+    "sha256": "7eb7e7ed9b82026d8ff414833ce1efc4e45f0ea55959a94a74e786ecc128e525"
+  },
+  {
+    "path": "core/devices.h",
+    "bytes": 2329,
+    "sha256": "acc234d8e544e24293c4ae0dfcf3ad3fb6fcdbb228b2f00100d89e08633c85c0"
+  },
+  {
+    "path": "core/linux_devices.cpp",
+    "bytes": 3753,
+    "sha256": "84ff92ba1b91aea3d93558890187953b78f3cf8d0ad7823b4733ae33ceb15dca"
+  },
+  {
+    "path": "core/monitor.cpp",
+    "bytes": 3382,
+    "sha256": "57a4dde3a21c1915ac4b8f356eca3163ea3ce01b74e7d109c24bfe9f35d6e404"
+  },
+  {
+    "path": "core/monitor.h",
+    "bytes": 1855,
+    "sha256": "cfa3f5f6deed150d113159f2098848e4ac5c8f0cd4f34846acef4f5c2c4551ed"
+  },
+  {
+    "path": "core/sampling.cpp",
+    "bytes": 2653,
+    "sha256": "5a156fc40dab6b2f540000a7765a197b8e191e8fc93536b45292d9b19a96ee1a"
+  },
+  {
+    "path": "core/sampling.h",
+    "bytes": 1045,
+    "sha256": "b20a89e408fdd42863e9721fa2a3ed60db4cc4668cef73ede8025dbc3154c06b"
+  },
+  {
+    "path": "docs/improvement/board-restoration.md",
+    "bytes": 3122,
+    "sha256": "a913e1a4c5578aa897e749bae5bebaafded88e599e62951106b2211cdc6e7576"
+  },
+  {
+    "path": "docs/improvement/interview.md",
+    "bytes": 2917,
+    "sha256": "e5a21a540403be0eb526fd7989b3c40962e00b08cb59ba770d21d6a845790cc5"
+  },
+  {
+    "path": "docs/improvement/plan.md",
+    "bytes": 4212,
+    "sha256": "49277bbd5f64c591e4c061cd5f071c163b0a60d85d86375b5f9ddd1c6abd8606"
+  },
+  {
+    "path": "docs/improvement/results.md",
+    "bytes": 5116,
+    "sha256": "ec64b700f99c0ff35bf1081bb7f87dfc14c49d1aaa84d6893aa091b9f0fa1255"
+  },
+  {
+    "path": "docs/improvement/worklog.md",
+    "bytes": 6734,
+    "sha256": "14fe5698d18fdc564970a9cf7c5ae84bdd817299ede8437210c006c08e4d5f72"
+  },
+  {
+    "path": "docs/README.md",
+    "bytes": 544,
+    "sha256": "7343848a2ec7387e0c542acb062020678ef811f9db9f144adb15ab71f38799fc"
+  },
+  {
+    "path": "README.md",
+    "bytes": 5852,
+    "sha256": "634916aee13c2de8dc39c78f4cef40939f8a455c89d141729175f936cee7beee"
+  },
+  {
+    "path": "tests/expect_shutdown_failure.cmake",
+    "bytes": 494,
+    "sha256": "0be459ec9342d4e26d24c7d313a070ea68f29c6156ad0b2200882a2ec2d33467"
+  },
+  {
+    "path": "tests/monitor_tests.cpp",
+    "bytes": 8854,
+    "sha256": "6bdbb5b681f6bd3d2cbfbf9ce5678cb775fe481211b1a15de6a5f6ceecbdc2f2"
+  },
+  {
+    "path": "tools/build-windows.ps1",
+    "bytes": 1153,
+    "sha256": "429f9b0008578c7f04be8c7fc9dfbf3ea3a17cb452cc242e5239947b0394172d"
+  },
+  {
+    "path": "tools/pir_contract.c",
+    "bytes": 1433,
+    "sha256": "ffd597f7cf436c2b0d599960820b086453602a32fb83a9cbd7b12d6bcd329dfb"
+  },
+  {
+    "path": "tools/run-local-monitor.sh",
+    "bytes": 344,
+    "sha256": "ab46cc604ca0cebb7ecba57ac6f6414f42163674d6d6ef204ff72a97935ee9ba"
+  },
+  {
+    "path": "tools/run-windows.ps1",
+    "bytes": 862,
+    "sha256": "c6d0ab9968c3b6b97af4b19bf443d933550d15748b4465efbba989df87e9e697"
+  },
+  {
+    "path": "tools/verify-linux.sh",
+    "bytes": 1809,
+    "sha256": "8c1b15a296264826ee9b528376b42508a1752c4badf93a9ad548e8a1c74c7249"
+  }
+]

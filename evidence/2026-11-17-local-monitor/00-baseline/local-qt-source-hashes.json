@@ -1,0 +1,32 @@
+[
+  {
+    "path": "D:\\vm\\qt_workspace\\smarthome\\mainwindow.cpp",
+    "bytes": 21037,
+    "sha256": "f6ddee36e78b81ba07eb5b463fad48eb99a0b3c5b988658b9fc5699d2423ce97"
+  },
+  {
+    "path": "D:\\vm\\qt_workspace\\smarthome\\mainwindow.h",
+    "bytes": 4518,
+    "sha256": "342ae7161ae99fa9b8f5f598af568193ac8f0175597668db9156b36fc436bb3f"
+  },
+  {
+    "path": "D:\\vm\\qt_workspace\\smarthome\\cameraworker.h",
+    "bytes": 24577,
+    "sha256": "f395a5d74f6229c62e6aae0a7deb9aeb7dfa38294915079b3df1e02504f22315"
+  },
+  {
+    "path": "D:\\vm\\qt_workspace\\smarthome\\workers.h",
+    "bytes": 3018,
+    "sha256": "eb1de51826c23cdacd353fd38305367daa02def69c4ddf50a735950a28dc3286"
+  },
+  {
+    "path": "D:\\vm\\qt_workspace\\smarthome\\deviceio.cpp",
+    "bytes": 4034,
+    "sha256": "43e7d78f072f791166e44c299a0bb339a795eb41f691ce0ec89f67d545793315"
+  },
+  {
+    "path": "D:\\vm\\qt_workspace\\smarthome\\smarthome.pro",
+    "bytes": 645,
+    "sha256": "d89e667a736111dcf333a0ab99881b6bb38028d0aa4318fb37f9a053f2a25723"
+  }
+]

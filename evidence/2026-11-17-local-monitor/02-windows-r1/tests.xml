@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="(empty)"
+	tests="3"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname=""
+	time="1"
+	timestamp="2026-11-17T18:40:35"
+	>
+	<testcase name="monitor_core" classname="monitor_core" time="0.117458" status="run">
+		<properties/>
+		<system-out>PASS startup_motion_mute_rearm
+PASS environment_hysteresis_failure
+PASS freshness_independent_causes
+PASS invalid_data_config
+{"measurement":"gated_dht_host_substitute","light_samples_while_dht_blocked":4,"max_light_gap_ms":32,"stop_ms":0,"board_proof":false}
+PASS sampling_isolation_stop
+PASS output_failure_recovery
+PASS platform_node_rejection
+{"suite":"monitor_core","tests":7,"failures":0,"board_proof":false}
+</system-out>
+	</testcase>
+	<testcase name="qt_simulated_workflow" classname="qt_simulated_workflow" time="1.08578" status="run">
+		<properties/>
+		<system-out>{"causes":0,"event":"dht_ok","monotonic_ms":36073725,"simulated":true}
+{"causes":0,"event":"pir_event","monotonic_ms":36073725,"simulated":true}
+{"causes":0,"event":"light_ok","monotonic_ms":36073725,"simulated":true}
+{"causes":0,"event":"light_ok","monotonic_ms":36073757,"simulated":true}
+{"causes":0,"event":"dht_ok","monotonic_ms":36073780,"simulated":true}
+{"causes":0,"event":"light_ok","monotonic_ms":36073788,"simulated":true}
+{"causes":0,"event":"light_ok","monotonic_ms":36073819,"simulated":true}
+{"causes":0,"event":"dht_ok","monotonic_ms":36073841,"simulated":true}
+{"causes":0,"event":"light_ok","monotonic_ms":36073850,"simulated":true}
+{"causes":0,"event":"light_ok","monotonic_ms":36073882,"simulated":true}
+{"causes":0,"event":"dht_ok","monotonic_ms":36073905,"simulated":true}
+{"causes":0,"event":"light_ok","monotonic_ms":36073913,"simulated":true}
+{"causes":0,"event":"armed","monotonic_ms":36073924,"simulated":true}
+{"causes":2,"event":"pir_event","monotonic_ms":36073924,"simulated":true}
+{"causes":2...
+[This part of the test output was removed since it exceeds the threshold of 1024 bytes.]
+</system-out>
+	</testcase>
+	<testcase name="reject_implicit_simulation" classname="reject_implicit_simulation" time="0.0229478" status="run">
+		<properties/>
+		<system-out>--smoke-test requires explicit --simulate
+</system-out>
+	</testcase>
+</testsuite>

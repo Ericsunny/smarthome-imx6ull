@@ -1,0 +1,760 @@
+{
+  "date": "2026-11-17",
+  "target_board_tested": false,
+  "qt5_arm_compiled": false,
+  "driver_native_compiled": true,
+  "windows_ctest_passed": 4,
+  "datasets": [
+    {
+      "source": "07-shutdown-review/build-and-tests.log",
+      "records": [
+        {
+          "measurement": "gated_dht_host_substitute",
+          "light_samples_while_dht_blocked": 4,
+          "max_light_gap_ms": 32,
+          "stop_ms": 0,
+          "board_proof": false
+        },
+        {
+          "suite": "monitor_core",
+          "tests": 7,
+          "failures": 0,
+          "board_proof": false
+        },
+        {
+          "causes": 0,
+          "event": "dht_ok",
+          "monotonic_ms": 37003864,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37003864,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "pir_event",
+          "monotonic_ms": 37003864,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37003903,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_ok",
+          "monotonic_ms": 37003922,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37003951,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37003983,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_ok",
+          "monotonic_ms": 37003985,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004028,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_ok",
+          "monotonic_ms": 37004043,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "armed",
+          "monotonic_ms": 37004063,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "pir_event",
+          "monotonic_ms": 37004063,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004074,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004107,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37004108,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004138,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004168,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37004170,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004200,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004231,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37004233,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004262,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "silenced",
+          "monotonic_ms": 37004265,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004294,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37004295,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004339,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37004358,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004372,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004404,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37004419,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37004434,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "disarmed",
+          "monotonic_ms": 37004464,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004466,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37004485,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004498,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004529,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37004544,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004561,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "output_failure_observed",
+          "monotonic_ms": 37004563,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004591,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37004607,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004622,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004654,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "output_recovered",
+          "monotonic_ms": 37004663,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37004670,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004685,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004717,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37004735,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004749,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004781,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37004796,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004811,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37004842,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37004857,
+          "simulated": true
+        },
+        {
+          "dht_attempts": 17,
+          "dht_failures": 7,
+          "light_attempts": 30,
+          "pass": true,
+          "qt_version": "6.11.1",
+          "rendered": true,
+          "simulated": true,
+          "test": "qt_simulated_workflow"
+        },
+        {
+          "causes": 0,
+          "event": "shutdown_outputs_off",
+          "monotonic_ms": 37004867,
+          "simulated": true
+        }
+      ]
+    },
+    {
+      "source": "07-shutdown-review/launcher-smoke.log",
+      "records": [
+        {
+          "causes": 0,
+          "event": "dht_ok",
+          "monotonic_ms": 37006057,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006058,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "pir_event",
+          "monotonic_ms": 37006058,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006091,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_ok",
+          "monotonic_ms": 37006107,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006123,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006155,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_ok",
+          "monotonic_ms": 37006173,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006187,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006218,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_ok",
+          "monotonic_ms": 37006235,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006250,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "armed",
+          "monotonic_ms": 37006257,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "pir_event",
+          "monotonic_ms": 37006257,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006282,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37006295,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006313,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006345,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37006361,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006375,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006406,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37006420,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006437,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "silenced",
+          "monotonic_ms": 37006457,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006468,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37006485,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006499,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006531,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37006546,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006563,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006593,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "dht_ok",
+          "monotonic_ms": 37006607,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006624,
+          "simulated": true
+        },
+        {
+          "causes": 2,
+          "event": "light_ok",
+          "monotonic_ms": 37006655,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "disarmed",
+          "monotonic_ms": 37006657,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37006671,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006687,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006718,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37006735,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006749,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "output_failure_observed",
+          "monotonic_ms": 37006758,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006781,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37006796,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006812,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006843,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37006856,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "output_recovered",
+          "monotonic_ms": 37006857,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006874,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006906,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37006920,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006937,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37006969,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37006985,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37007000,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "light_ok",
+          "monotonic_ms": 37007031,
+          "simulated": true
+        },
+        {
+          "causes": 0,
+          "event": "dht_failed",
+          "monotonic_ms": 37007044,
+          "simulated": true
+        },
+        {
+          "dht_attempts": 17,
+          "dht_failures": 7,
+          "light_attempts": 32,
+          "pass": true,
+          "qt_version": "6.11.1",
+          "rendered": true,
+          "simulated": true,
+          "test": "qt_simulated_workflow"
+        },
+        {
+          "causes": 0,
+          "event": "shutdown_outputs_off",
+          "monotonic_ms": 37007060,
+          "simulated": true
+        }
+      ]
+    },
+    {
+      "source": "03-linux-r3/tests.log",
+      "records": [
+        {
+          "measurement": "gated_dht_host_substitute",
+          "light_samples_while_dht_blocked": 4,
+          "max_light_gap_ms": 21,
+          "stop_ms": 0,
+          "board_proof": false
+        },
+        {
+          "suite": "monitor_core",
+          "tests": 7,
+          "failures": 0,
+          "board_proof": false
+        }
+      ]
+    },
+    {
+      "source": "03-linux-r3/sanitized-tests.log",
+      "records": [
+        {
+          "measurement": "gated_dht_host_substitute",
+          "light_samples_while_dht_blocked": 4,
+          "max_light_gap_ms": 21,
+          "stop_ms": 1,
+          "board_proof": false
+        },
+        {
+          "suite": "monitor_core",
+          "tests": 7,
+          "failures": 0,
+          "board_proof": false
+        }
+      ]
+    }
+  ]
+}
