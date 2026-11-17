@@ -34,6 +34,11 @@ struct OutputResult {
     OutputResult(bool l = false, bool b = false, int le = 0, int be = 0)
         : ledOk(l), beepOk(b), ledError(le), beepError(be) {}
 };
+struct ActuatorResult {
+    bool ok;
+    int error;
+    ActuatorResult(bool good = false, int e = 0) : ok(good), error(e) {}
+};
 
 // One sampling thread per input. applyOutputs has one controller-thread caller.
 class Devices {
@@ -43,6 +48,9 @@ public:
     virtual LightReading readLight() = 0;
     virtual PirReading waitPir(int timeoutMs) = 0;
     virtual OutputResult applyOutputs(bool led, bool beep) = 0;
+    virtual ActuatorResult setServoAngle(int angle) = 0;
+    virtual ActuatorResult runStepper(int steps) = 0;
+    virtual ActuatorResult releaseServo() = 0;
     virtual void interrupt() {}
 };
 
@@ -52,6 +60,9 @@ public:
     LightReading readLight() override;
     PirReading waitPir(int timeoutMs) override;
     OutputResult applyOutputs(bool led, bool beep) override;
+    ActuatorResult setServoAngle(int angle) override;
+    ActuatorResult runStepper(int steps) override;
+    ActuatorResult releaseServo() override;
     void interrupt() override;
     void setDht(bool ok, int temperature = 24, int humidity = 50);
     void setLight(bool ok, double lux = 120);
@@ -59,6 +70,10 @@ public:
     void failOutputs(bool fail);
     bool led() const;
     bool beep() const;
+    void failActuators(bool servo, bool stepper);
+    int servoAngle() const;
+    int stepperSteps() const;
+    bool servoEnabled() const;
 private:
     mutable std::mutex mutex_;
     std::condition_variable changed_;
@@ -67,6 +82,8 @@ private:
     double lux_ = 120;
     bool high_ = false, pending_ = true, interrupted_ = false;
     bool outputFailure_ = false, led_ = false, beep_ = false;
+    bool servoFailure_ = false, stepperFailure_ = false, servoEnabled_ = false;
+    int servoAngle_ = 0, stepperSteps_ = 0;
 };
 
 // Returns null outside Linux. It never substitutes simulated data implicitly.

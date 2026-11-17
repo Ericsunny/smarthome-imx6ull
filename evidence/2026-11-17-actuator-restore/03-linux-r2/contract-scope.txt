@@ -1,0 +1,1 @@
+pir_contract compiled; NOT run against hardware

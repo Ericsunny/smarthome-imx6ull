@@ -3,6 +3,8 @@
 - [当前架构与数据链路](overview/architecture.md)
 - [场景、问题与设计取舍](overview/project-brief.md)
 - [本轮场景、范围和测量口径](improvement/plan.md)
+- [执行器恢复场景与验证计划](improvement/actuator-plan.md)
+- [执行器恢复结果、收益与边界](improvement/actuator-results.md)
 - [逐步修改、调试和验证记录](improvement/worklog.md)
 - [结果、收益与未验证边界](improvement/results.md)
 - [开发板环境恢复清单](improvement/board-restoration.md)

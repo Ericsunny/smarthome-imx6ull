@@ -185,7 +185,7 @@ void linuxNodeRejection()
     char path[] = "/tmp/local-monitor-node-test-XXXXXX";
     CHECK(mkdtemp(path) != nullptr);
     const std::string root(path);
-    for (const char *node : {"dht11", "ap3216c", "hc_sr505", "led", "beep"})
+    for (const char *node : {"dht11", "ap3216c", "hc_sr505", "led", "beep", "sg90", "step28byj48"})
         std::ofstream(root + "/" + node) << "do not overwrite";
     auto devices = monitor::linuxDevices(root);
     const auto dht = devices->readDht();
@@ -194,12 +194,14 @@ void linuxNodeRejection()
     const auto output = devices->applyOutputs(false, false);
     CHECK(!dht.ok && !light.ok && pir.kind == monitor::PirKind::Offline);
     CHECK(!output.ledOk && !output.beepOk);
+    CHECK(!devices->setServoAngle(90).ok && !devices->runStepper(2048).ok &&
+          !devices->releaseServo().ok);
     std::ifstream led(root + "/led");
     std::string content;
     std::getline(led, content);
     CHECK(content == "do not overwrite");
     devices.reset();
-    for (const char *node : {"dht11", "ap3216c", "hc_sr505", "led", "beep"})
+    for (const char *node : {"dht11", "ap3216c", "hc_sr505", "led", "beep", "sg90", "step28byj48"})
         unlink((root + "/" + node).c_str());
     rmdir(root.c_str());
 #else

@@ -1,0 +1,16 @@
+Scanning dependencies of target monitor_core
+[ 10%] Building CXX object CMakeFiles/monitor_core.dir/core/monitor.cpp.o
+[ 20%] Building CXX object CMakeFiles/monitor_core.dir/core/devices.cpp.o
+[ 30%] Building CXX object CMakeFiles/monitor_core.dir/core/linux_devices.cpp.o
+[ 40%] Building CXX object CMakeFiles/monitor_core.dir/core/sampling.cpp.o
+[ 50%] Building CXX object CMakeFiles/monitor_core.dir/core/actuators.cpp.o
+[ 60%] Linking CXX static library libmonitor_core.a
+[ 60%] Built target monitor_core
+Scanning dependencies of target monitor_tests
+Scanning dependencies of target actuator_tests
+[ 70%] Building CXX object CMakeFiles/monitor_tests.dir/tests/monitor_tests.cpp.o
+[ 80%] Building CXX object CMakeFiles/actuator_tests.dir/tests/actuator_tests.cpp.o
+[ 90%] Linking CXX executable actuator_tests
+[ 90%] Built target actuator_tests
+[100%] Linking CXX executable monitor_tests
+[100%] Built target monitor_tests

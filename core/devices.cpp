@@ -69,4 +69,44 @@ bool SimDevices::beep() const
     std::lock_guard<std::mutex> lock(mutex_);
     return beep_;
 }
+ActuatorResult SimDevices::setServoAngle(int angle)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (angle < 0 || angle > 180) return ActuatorResult(false, EINVAL);
+    if (servoFailure_) return ActuatorResult(false, EIO);
+    servoAngle_ = angle; servoEnabled_ = true;
+    return ActuatorResult(true);
+}
+ActuatorResult SimDevices::runStepper(int steps)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (steps < -8192 || steps > 8192) return ActuatorResult(false, EINVAL);
+    if (stepperFailure_) return ActuatorResult(false, EIO);
+    stepperSteps_ += steps;
+    return ActuatorResult(true);
+}
+ActuatorResult SimDevices::releaseServo()
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (servoFailure_) return ActuatorResult(false, EIO);
+    servoEnabled_ = false;
+    return ActuatorResult(true);
+}
+void SimDevices::failActuators(bool servo, bool stepper)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    servoFailure_ = servo; stepperFailure_ = stepper;
+}
+int SimDevices::servoAngle() const
+{
+    std::lock_guard<std::mutex> lock(mutex_); return servoAngle_;
+}
+int SimDevices::stepperSteps() const
+{
+    std::lock_guard<std::mutex> lock(mutex_); return stepperSteps_;
+}
+bool SimDevices::servoEnabled() const
+{
+    std::lock_guard<std::mutex> lock(mutex_); return servoEnabled_;
+}
 }

@@ -98,6 +98,11 @@ void Monitor::silence(Millis now)
 }
 
 void Monitor::tick(Millis now) { update(now); }
+void Monitor::setActuatorFault(bool failed, Millis now)
+{
+    state_.actuatorFault = failed;
+    update(now);
+}
 
 void Monitor::update(Millis now)
 {
@@ -111,7 +116,8 @@ void Monitor::update(Millis now)
     if (!causes) state_.muted = false;
     state_.causes = causes;
     state_.fault = !state_.dht.valid(now, config_.staleMs) ||
-                   !state_.light.valid(now, config_.staleMs) || !state_.pirKnown;
+                   !state_.light.valid(now, config_.staleMs) || !state_.pirKnown ||
+                   state_.actuatorFault;
     state_.desiredLed = causes || state_.fault;
     state_.desiredBeep = state_.armed && causes && !state_.muted;
 }

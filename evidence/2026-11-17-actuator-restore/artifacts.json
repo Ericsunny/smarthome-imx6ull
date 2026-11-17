@@ -1,0 +1,18 @@
+[
+  {
+    "path": "build-windows/smarthome.exe",
+    "sha256": "1afedacf1461a18437e4aa3a35cf7cdf670cc38a7502dc20ded35320cee05ab4"
+  },
+  {
+    "path": "build-windows/monitor_tests.exe",
+    "sha256": "7e446a5138f531e199872f15b576c412b98ee75029db30dc76452fe8f437eec1"
+  },
+  {
+    "path": "build-windows/actuator_tests.exe",
+    "sha256": "c3e398f8357958353958e463ee2359097418621696d54f77508c9988e952f8aa"
+  },
+  {
+    "path": "build-actuator-qmake/release/smarthome.exe",
+    "sha256": "2e702b952b76825819f685b739abdc31475c369c12a1a27029600ccbf95ac0d8"
+  }
+]

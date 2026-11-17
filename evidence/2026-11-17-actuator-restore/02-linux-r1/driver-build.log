@@ -1,0 +1,12 @@
+make: Entering directory '/usr/src/linux-headers-5.4.0-216-generic'
+  CC [M]  /tmp/imx6ull-actuators-20261117.4A3E1u/build-driver/hc_sr505.o
+  CC [M]  /tmp/imx6ull-actuators-20261117.4A3E1u/build-driver/sg90.o
+  CC [M]  /tmp/imx6ull-actuators-20261117.4A3E1u/build-driver/step28byj48.o
+/tmp/imx6ull-actuators-20261117.4A3E1u/build-driver/step28byj48.c: In function ‘step_ioctl’:
+/tmp/imx6ull-actuators-20261117.4A3E1u/build-driver/step28byj48.c:95:7: error: implicit declaration of function ‘signal_pending’ [-Werror=implicit-function-declaration]
+   95 |   if (signal_pending(current)) {
+      |       ^~~~~~~~~~~~~~
+cc1: some warnings being treated as errors
+make[1]: *** [scripts/Makefile.build:270: /tmp/imx6ull-actuators-20261117.4A3E1u/build-driver/step28byj48.o] Error 1
+make: *** [Makefile:1783: /tmp/imx6ull-actuators-20261117.4A3E1u/build-driver] Error 2
+make: Leaving directory '/usr/src/linux-headers-5.4.0-216-generic'

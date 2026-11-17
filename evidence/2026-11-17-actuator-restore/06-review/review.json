@@ -1,0 +1,14 @@
+{
+  "staged_files": 67,
+  "sensitive_pattern_matches": 0,
+  "source_files_match_linux_test_archive": 27,
+  "windows_ctest_passed": 6,
+  "native_core_scenarios": 11,
+  "linux_asan_ubsan": true,
+  "native_modules_compiled": 3,
+  "modules_loaded": false,
+  "board_tested": false,
+  "qt5_arm_tested": false,
+  "diagrams_parsed": 3,
+  "local_links": 67
+}

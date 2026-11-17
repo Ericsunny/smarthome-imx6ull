@@ -1,0 +1,137 @@
+[
+  {
+    "path": "CMakeLists.txt",
+    "sha256": "181ceeae9817f644feea46fa5e8c8469e9e2930ebf597ced2ca6dbf4a2ca48df",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/actuators.cpp",
+    "sha256": "562d08b29d5017ab2b791a9ddbf80f6933182da8254ea8bbb621870db4d48cbf",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/actuators.h",
+    "sha256": "da45aaedc1e19f9c2154c92796e98c323e6c0d779b5bb87d6ed3bfdb146e3e86",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/devices.cpp",
+    "sha256": "1cf667aafaefae2fbfbf62fd9a8b1389b18f209cae393ff8b5b1a66293e52c35",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/devices.h",
+    "sha256": "441a6e10a7e578fab071a0db1e26ee54628443ee7f398be3f822b5fe9d72b570",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/linux_devices.cpp",
+    "sha256": "9d67ced6e248320b42f4efdcf3be4bc0a55218b9efd12dc61fcb25ebb5f61a3e",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/monitor.cpp",
+    "sha256": "b9da4e9dc29c9c2af9748799e3d0b25cc373e789f251facee0076190ceb48293",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/monitor.h",
+    "sha256": "8184f24cab434a192f09fda8c478408f87e9814a0a6f3cf37dac6cec57904dce",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/sampling.cpp",
+    "sha256": "5a156fc40dab6b2f540000a7765a197b8e191e8fc93536b45292d9b19a96ee1a",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "core/sampling.h",
+    "sha256": "b20a89e408fdd42863e9721fa2a3ed60db4cc4668cef73ede8025dbc3154c06b",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "app/bridge.h",
+    "sha256": "d9bd21516a27e050e4292e1fda47728c5b94bb01ffdab5083aafa5944e0b8de9",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "app/main.cpp",
+    "sha256": "127b2ff9d459dd40666a007cef767f3ad3d8b97743d7981f153aa57574e1715e",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "app/mainwindow.cpp",
+    "sha256": "6d06578ceaefa6a09f6cbc77c8462075de74d63a030d60a704a51bb9f51036be",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "app/mainwindow.h",
+    "sha256": "bbdfc89d484b5e068caafeea69167c0308c2c6a837dc9080a72d389863092bc2",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "app/smarthome.pro",
+    "sha256": "1569610e226c3e61126db27ac5dece6aa73cdd24e833c5bea294c7b274ea4f20",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tests/actuator_tests.cpp",
+    "sha256": "f0d4511bd0ddca813ef4e0f8e45c9709348115cf8ecbea28095ae34ed6852bf5",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tests/expect_servo_shutdown_failure.cmake",
+    "sha256": "9aa8e538fadb8f1bebaaa81be0dd227e95146ec5874d9a91b3e7ed86a5ac9f24",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tests/expect_shutdown_failure.cmake",
+    "sha256": "0be459ec9342d4e26d24c7d313a070ea68f29c6156ad0b2200882a2ec2d33467",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tests/monitor_tests.cpp",
+    "sha256": "a2e4828acb45c5418da5d2b126027e6eae9bfd625eb7657d94bc102b842d0833",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tools/build-windows.ps1",
+    "sha256": "429f9b0008578c7f04be8c7fc9dfbf3ea3a17cb452cc242e5239947b0394172d",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tools/pir_contract.c",
+    "sha256": "ffd597f7cf436c2b0d599960820b086453602a32fb83a9cbd7b12d6bcd329dfb",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tools/run-local-monitor.sh",
+    "sha256": "ab46cc604ca0cebb7ecba57ac6f6414f42163674d6d6ef204ff72a97935ee9ba",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tools/run-windows.ps1",
+    "sha256": "c6d0ab9968c3b6b97af4b19bf443d933550d15748b4465efbba989df87e9e697",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "tools/verify-linux.sh",
+    "sha256": "0953ad75ccb8a973e2a64041c18e6121070c3a8b0c1d4bb7a164b22541ce19b8",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "01-驱动层/hc_sr505.c",
+    "sha256": "48ddaf1def24d97ef43414da5e9cfc17697909a834b62e207cbcf47a313df5ba",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "01-驱动层/sg90.c",
+    "sha256": "42f0094b79625f6e9f7076718f0d22958819229ff1208af3644d7e6e249b0b2c",
+    "linux_test_source_match": true
+  },
+  {
+    "path": "01-驱动层/step28byj48.c",
+    "sha256": "f4f84d5f74317fcffced103160e201d0a9f57b3af099f4e633d25f9e5670c578",
+    "linux_test_source_match": true
+  }
+]

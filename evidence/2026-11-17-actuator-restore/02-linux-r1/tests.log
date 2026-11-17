@@ -1,0 +1,40 @@
+UpdateCTestConfiguration  from :/tmp/imx6ull-actuators-20261117.4A3E1u/build-linux/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/tmp/imx6ull-actuators-20261117.4A3E1u/build-linux/DartConfiguration.tcl
+Test project /tmp/imx6ull-actuators-20261117.4A3E1u/build-linux
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: monitor_core
+
+1: Test command: /tmp/imx6ull-actuators-20261117.4A3E1u/build-linux/monitor_tests
+1: Test timeout computed to be: 20
+1: PASS startup_motion_mute_rearm
+1: PASS environment_hysteresis_failure
+1: PASS freshness_independent_causes
+1: PASS invalid_data_config
+1: {"measurement":"gated_dht_host_substitute","light_samples_while_dht_blocked":4,"max_light_gap_ms":21,"stop_ms":1,"board_proof":false}
+1: PASS sampling_isolation_stop
+1: PASS output_failure_recovery
+1: PASS platform_node_rejection
+1: {"suite":"monitor_core","tests":7,"failures":0,"board_proof":false}
+1/2 Test #1: monitor_core .....................   Passed    0.09 sec
+test 2
+    Start 2: actuator_core
+
+2: Test command: /tmp/imx6ull-actuators-20261117.4A3E1u/build-linux/actuator_tests
+2: Test timeout computed to be: 20
+2: PASS servo_modes_freshness_hysteresis_failure
+2: PASS curtain_reference_dwell_latest_target_failure
+2: {"measurement":"gated_stepper_host_substitute","light_updates_while_blocked":4,"servo_completed_while_blocked":true,"duplicate_step_rejected":true,"board_proof":false}
+2: PASS slow_stepper_isolation_shutdown
+2: PASS calibration_validation_disable_failure
+2: {"suite":"actuator_core","tests":4,"failures":0,"board_proof":false}
+2/2 Test #2: actuator_core ....................   Passed    0.09 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.17 sec

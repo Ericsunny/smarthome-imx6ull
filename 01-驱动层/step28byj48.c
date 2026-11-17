@@ -1,7 +1,6 @@
 #include <linux/types.h>
 #include <linux/kernel.h>
 #include <linux/delay.h>
-#include <linux/ide.h>
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/errno.h>
@@ -13,13 +12,17 @@
 #include <linux/platform_device.h>
 #include <linux/mutex.h>
 #include <linux/sched.h>
-#include <asm/uaccess.h>
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
+#include <linux/sched/signal.h>
+#endif
+#include <linux/uaccess.h>
 
 /*
  * 28BYJ48 步进电机(经 ULN2003 驱动线圈) —— 四相八拍
  * 每拍给 IN1~IN4 一组通电组合, 转子跟着磁场走一步; 顺着表走是正转,
  * 倒着走是反转。半步八拍 {1,3,2,6,4,C,8,9}, 4096 拍 = 输出轴一圈
- * (内部 1:64 齿轮箱)。拍间隔 2ms, 用 usleep_range 保证精度。
+ * (名义减速比约 1:64)。拍间隔请求 2~2.2ms，实际还受调度影响。
  */
 
 #define STEP_CNT  1
@@ -96,7 +99,9 @@ static long step_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 		if (signal_pending(current)) {
 			step_write_pattern(0);
 			mutex_unlock(&step.lock);
-			return -ERESTARTSYS;
+			/* Partial relative motion must never be automatically replayed
+			 * by the signal restart path. User space must invalidate its estimate. */
+			return -EINTR;
 		}
 		/* 正转下标 +1; 反转用 +7 不用 -1 —— C 的 % 结果跟着被除数走,
 		 * idx=0 时 -1%8 = -1, 拿去当数组下标就越界了 */

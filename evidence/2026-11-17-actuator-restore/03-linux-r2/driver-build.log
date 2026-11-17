@@ -1,0 +1,13 @@
+make: Entering directory '/usr/src/linux-headers-5.4.0-216-generic'
+  CC [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/hc_sr505.o
+  CC [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/sg90.o
+  CC [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/step28byj48.o
+  Building modules, stage 2.
+  MODPOST 3 modules
+  CC [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/hc_sr505.mod.o
+  LD [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/hc_sr505.ko
+  CC [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/sg90.mod.o
+  LD [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/sg90.ko
+  CC [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/step28byj48.mod.o
+  LD [M]  /tmp/imx6ull-actuators-20261117.kilND8/build-driver/step28byj48.ko
+make: Leaving directory '/usr/src/linux-headers-5.4.0-216-generic'

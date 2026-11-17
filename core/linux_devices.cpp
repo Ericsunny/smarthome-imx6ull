@@ -84,7 +84,31 @@ public:
         const int be = writeSwitch(root_ + "/beep", beep);
         return OutputResult(le == 0, be == 0, le, be);
     }
+    ActuatorResult setServoAngle(int angle) override
+    {
+        if (angle < 0 || angle > 180) return ActuatorResult(false, EINVAL);
+        return actuatorIoctl("/sg90", _IOW('S', 1, int), &angle);
+    }
+    ActuatorResult runStepper(int steps) override
+    {
+        if (steps < -8192 || steps > 8192) return ActuatorResult(false, EINVAL);
+        return actuatorIoctl("/step28byj48", _IOW('T', 1, int), &steps);
+    }
+    ActuatorResult releaseServo() override
+    {
+        return actuatorIoctl("/sg90", _IO('S', 2), nullptr);
+    }
 private:
+    ActuatorResult actuatorIoctl(const char *node, unsigned long command, int *value)
+    {
+        int fd = openCharacter(root_ + node, O_RDWR);
+        if (fd < 0) return ActuatorResult(false, errno);
+        const int rc = ioctl(fd, command, value);
+        const int error = rc < 0 ? errno : 0;
+        close(fd);
+        // Do not retry EINTR: a relative step command may already have moved.
+        return ActuatorResult(rc == 0, error);
+    }
     PirReading pirFailure(int error)
     {
         close(pirFd_); pirFd_ = -1;

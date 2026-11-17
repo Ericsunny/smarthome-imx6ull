@@ -1,0 +1,150 @@
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: D:/vm/github/smarthome-imx6ull/build-windows
+[1/2] Building CXX object CMakeFiles/monitor_tests.dir/tests/monitor_tests.cpp.obj
+[2/2] Linking CXX executable monitor_tests.exe
+UpdateCTestConfiguration  from :D:/vm/github/smarthome-imx6ull/build-windows/DartConfiguration.tcl
+Test project D:/vm/github/smarthome-imx6ull/build-windows
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: monitor_core
+
+1: Test command: D:\vm\github\smarthome-imx6ull\build-windows\monitor_tests.exe
+1: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+1: Test timeout computed to be: 20
+1: PASS startup_motion_mute_rearm
+1: PASS environment_hysteresis_failure
+1: PASS freshness_independent_causes
+1: PASS invalid_data_config
+1: {"measurement":"gated_dht_host_substitute","light_samples_while_dht_blocked":4,"max_light_gap_ms":32,"stop_ms":0,"board_proof":false}
+1: PASS sampling_isolation_stop
+1: PASS output_failure_recovery
+1: PASS platform_node_rejection
+1: {"suite":"monitor_core","tests":7,"failures":0,"board_proof":false}
+1/6 Test #1: monitor_core .....................   Passed    0.12 sec
+test 2
+    Start 2: actuator_core
+
+2: Test command: D:\vm\github\smarthome-imx6ull\build-windows\actuator_tests.exe
+2: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+2: Test timeout computed to be: 20
+2: PASS servo_modes_freshness_hysteresis_failure
+2: PASS curtain_reference_dwell_latest_target_failure
+2: {"measurement":"gated_stepper_host_substitute","light_updates_while_blocked":4,"servo_completed_while_blocked":true,"duplicate_step_rejected":true,"board_proof":false}
+2: PASS slow_stepper_isolation_shutdown
+2: PASS calibration_validation_disable_failure
+2: {"suite":"actuator_core","tests":4,"failures":0,"board_proof":false}
+2/6 Test #2: actuator_core ....................   Passed    0.14 sec
+test 3
+    Start 3: qt_simulated_workflow
+
+3: Test command: D:\vm\github\smarthome-imx6ull\build-windows\smarthome.exe "--simulate" "--smoke-test"
+3: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+3: Environment variables: 
+3:  QT_QPA_PLATFORM=offscreen
+3: Test timeout computed to be: 15
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"dht_ok","monotonic_ms":39877444,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"hold","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"light_ok","monotonic_ms":39877444,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"hold","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"pir_event","monotonic_ms":39877444,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"hold","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"light_ok","monotonic_ms":39877476,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"hold","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"dht_ok","monotonic_ms":39877496,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"hold","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"light_ok","monotonic_ms":39877506,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"hold","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"light_ok","monotonic_ms":39877539,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"hold","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"servo_open","monotonic_ms":39877544,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":false,"curtain_target":0,"event":"servo_command","monotonic_ms":39877544,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"curtain_reference","monotonic_ms":39877544,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"curtain_open","monotonic_ms":39877545,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"curtain_command","monotonic_ms":39877545,"servo_accepted":0,"servo_error":0,"servo_known":false,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"servo_accepted","monotonic_ms":39877545,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"curtain_command_returned","monotonic_ms":39877545,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"dht_ok","monotonic_ms":39877563,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"light_ok","monotonic_ms":39877575,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"light_ok","monotonic_ms":39877608,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"dht_ok","monotonic_ms":39877625,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"armed","monotonic_ms":39877644,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"pir_event","monotonic_ms":39877645,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"light_ok","monotonic_ms":39877653,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"light_ok","monotonic_ms":39877685,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"dht_ok","monotonic_ms":39877688,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"light_ok","monotonic_ms":39877732,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"dht_ok","monotonic_ms":39877751,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"light_ok","monotonic_ms":39877764,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"light_ok","monotonic_ms":39877809,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"dht_ok","monotonic_ms":39877809,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"silenced","monotonic_ms":39877844,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"light_ok","monotonic_ms":39877857,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":2048,"event":"dht_ok","monotonic_ms":39877873,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":0,"event":"curtain_close","monotonic_ms":39877894,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":true,"curtain_target":0,"event":"curtain_command","monotonic_ms":39877894,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":5,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":false,"curtain_target":0,"event":"curtain_estimate_lost","monotonic_ms":39877895,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":5,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":false,"curtain_target":0,"event":"light_ok","monotonic_ms":39877903,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":5,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":false,"curtain_target":0,"event":"dht_ok","monotonic_ms":39877936,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":5,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":false,"curtain_target":0,"event":"light_ok","monotonic_ms":39877951,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":5,"curtain_estimate":2048,"curtain_mode":"manual","curtain_referenced":false,"curtain_target":0,"event":"light_ok","monotonic_ms":39877982,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"curtain_reference","monotonic_ms":39877994,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":90,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"servo_close","monotonic_ms":39877994,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"servo_command","monotonic_ms":39877994,"servo_accepted":90,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"servo_accepted","monotonic_ms":39877995,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"dht_ok","monotonic_ms":39877998,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":2,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878014,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"disarmed","monotonic_ms":39878044,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878046,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"dht_failed","monotonic_ms":39878061,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878077,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878108,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"dht_failed","monotonic_ms":39878125,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878139,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"output_failure_observed","monotonic_ms":39878144,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878171,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"dht_failed","monotonic_ms":39878186,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878202,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878233,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"output_recovered","monotonic_ms":39878243,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"dht_failed","monotonic_ms":39878246,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878264,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878296,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"dht_failed","monotonic_ms":39878311,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878328,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878359,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"dht_failed","monotonic_ms":39878372,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878390,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"light_ok","monotonic_ms":39878422,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"dht_failed","monotonic_ms":39878438,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"curtain_reference_valid":true,"dht_attempts":17,"dht_failures":7,"light_attempts":29,"pass":true,"qt_version":"6.11.1","rendered":true,"servo_accepted":0,"simulated":true,"test":"qt_simulated_workflow"}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"shutdown_servo_disabled_or_unused","monotonic_ms":39878453,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3: {"causes":0,"curtain_error":0,"curtain_estimate":0,"curtain_mode":"hold","curtain_referenced":true,"curtain_target":0,"event":"shutdown_outputs_off","monotonic_ms":39878453,"servo_accepted":0,"servo_error":0,"servo_known":true,"servo_mode":"manual","servo_target":0,"simulated":true}
+3/6 Test #3: qt_simulated_workflow ............   Passed    1.06 sec
+test 4
+    Start 4: reject_implicit_simulation
+
+4: Test command: D:\vm\github\smarthome-imx6ull\build-windows\smarthome.exe "--smoke-test"
+4: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+4: Test timeout computed to be: 5
+4: --smoke-test requires explicit --simulate
+4/6 Test #4: reject_implicit_simulation .......   Passed    0.03 sec
+test 5
+    Start 5: shutdown_output_failure
+
+5: Test command: "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-DMONITOR_BINARY=D:/vm/github/smarthome-imx6ull/build-windows/smarthome.exe" "-P" "D:/vm/github/smarthome-imx6ull/tests/expect_shutdown_failure.cmake"
+5: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+5: Test timeout computed to be: 15
+5: -- Shutdown output failure reported and process returned 1
+5/6 Test #5: shutdown_output_failure ..........   Passed    1.13 sec
+test 6
+    Start 6: shutdown_servo_failure
+
+6: Test command: "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-DMONITOR_BINARY=D:/vm/github/smarthome-imx6ull/build-windows/smarthome.exe" "-P" "D:/vm/github/smarthome-imx6ull/tests/expect_servo_shutdown_failure.cmake"
+6: Working Directory: D:/vm/github/smarthome-imx6ull/build-windows
+6: Test timeout computed to be: 15
+6: -- PWM disable failure reported and process returned 1
+6/6 Test #6: shutdown_servo_failure ...........   Passed    1.12 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   3.61 sec

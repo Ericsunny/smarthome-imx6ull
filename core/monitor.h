@@ -42,6 +42,7 @@ struct Snapshot {
     SampleState light;
     unsigned causes = 0;
     bool fault = true;
+    bool actuatorFault = false;
     bool desiredLed = true;
     bool desiredBeep = false;
     unsigned alarmEpisodes = 0;
@@ -61,6 +62,7 @@ public:
     void pirOffline(int error, Millis now);
     void setArmed(bool armed, Millis now);
     void silence(Millis now);
+    void setActuatorFault(bool failed, Millis now);
     void tick(Millis now);
     const Snapshot &state() const { return state_; }
     const Config &config() const { return config_; }
